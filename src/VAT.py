@@ -4,5 +4,4 @@
 
 class VAT():
 
-
     def main(): 

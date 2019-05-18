@@ -1,44 +1,58 @@
-from scikit-learn import BallTree
-
+from sklearn.neighbors import BallTree
+import numpy as np
+from random import sample
+from numpy.random import uniform 
+import pandas as pd
 
 
 class Hopkins(): 
 
-
-    self.sampling_size = None
-
-    def __init__():
-        pass
+    def __init__(self, size):
+        print("méthode initialisé")
+        self.size = size
 
     
-    def do_sampling(D,sample_size): 
+    def do_sampling(self,D,sample_size): 
         '''
-        return n sample from D : 
+        return n sample from D 
         '''
-        pass
-    
+        if sample_size > D.shape()[0]:
+            raise Exception('The number of sample of sample is superieur than the shape of D')
 
-    def do_neirest_neigbbors(P):
+        P = D.sample(n= sample_size)
+
+        return P
+
+    def do_neirest_neigbbors(self,P,D):
         '''
         return an array X containing the distance between P points and their
         neirest neigbors in D
         '''
-        pass
 
-    def do_simulate_points(sample_size):
-        '''
-        return n sample from a simulate dataset
-        '''
-        pass
+        _tree = BallTree(D)
+        dist , = _tree.query(P, k=1)
+        
 
-    def do_neirest_neigbbors(Q):
-        '''
-        return an array Y containing the distance between q points and their
-        neirest neigbors in D
-        '''
-        pass
+        return dist
 
-    def evaluate_hopkins(X,Y):
+    def do_simulate_points(self,D,sample_size):
+        '''
+        return n sample from a simulate dataset with the same variation as D
+        '''
+        
+        max_D = D.max()
+        min_D = D.min()
+
+        matrix = np.column_stack((np.random.uniform(min_D[0],max_D[0], sample_size),np.random.uniform(min_D[1],max_D[1], sample_size)))
+        if len(max_D)>=2:
+            for i in range(2,len(max_D)):
+                matrix = np.column_stack((matrix,np.random.uniform(min_D[i],max_D[i],sample_size)))
+
+        df = pd.DataFrame(matrix)
+
+        return df
+
+    def evaluate_hopkins(self,X,Y):
         '''
         return the Hopkins score
         '''
@@ -46,19 +60,20 @@ class Hopkins():
         numerator = sum(Y)
         denominator = sum(X) + sum(Y)
 
+        if (denominator == 0):
+            raise Exception('The denominator of the hopkins statistics is null')
+
         return numerator/denominator
 
 
-    def __main__(D,sampling_size):
+    def eval(self, D,sampling_size):
 
-        P = do_sampling(D,sampling_size)
-        X = do_neirest_neigbbors(P)
-        Q = do_simulate_points(sampling_size)
-        Y = do_neirest_neigbbors(Q)
+        P = self.do_sampling(D,sampling_size)
+        X = self.do_neirest_neigbbors(P,D)
+        Q = self.do_simulate_points(D,sampling_size)
+        Y = self.do_neirest_neigbbors(Q,D)
 
-
-        return evaluate_hopkins(X,Y)
-
+        return self.evaluate_hopkins(X,Y)
 
 
-    
+
