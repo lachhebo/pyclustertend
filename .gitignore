@@ -7,3 +7,5 @@ tests/.RData
 tests/.Rhistory
 tests/test_faithful.r
 build/
+dist/ 
+PyClusterTend.egg-info/
