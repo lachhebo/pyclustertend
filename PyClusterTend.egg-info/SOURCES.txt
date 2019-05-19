@@ -1,0 +1,11 @@
+README.md
+setup.py
+PyClusterTend.egg-info/PKG-INFO
+PyClusterTend.egg-info/SOURCES.txt
+PyClusterTend.egg-info/dependency_links.txt
+PyClusterTend.egg-info/top_level.txt
+src/VAT.py
+src/__init__.py
+src/hopkins.py
+tests/__init__.py
+tests/hopkins_test.py

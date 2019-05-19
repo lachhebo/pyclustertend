@@ -6,3 +6,4 @@ src/hopkins.ipynb
 tests/.RData
 tests/.Rhistory
 tests/test_faithful.r
+build/
