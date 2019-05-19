@@ -2,3 +2,7 @@ src/.ipynb_checkpoints
 src/Concrete_Data_Yeh.csv
 src/Untitled.ipynb
 src/__pycache__/
+src/hopkins.ipynb
+tests/.RData
+tests/.Rhistory
+tests/test_faithful.r

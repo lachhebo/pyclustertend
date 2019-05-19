@@ -5,35 +5,37 @@ from numpy.random import uniform
 import pandas as pd
 
 
-class Hopkins(): 
+class Hopkins: 
 
-    def __init__(self, size):
-        print("méthode initialisé")
-        self.size = size
-
+    def __init__(self, f, s):
+        self.D = f 
+        self.sampling_size = s 
     
     def do_sampling(self,D,sample_size): 
         '''
         return n sample from D 
         '''
-        if sample_size > D.shape()[0]:
+        if sample_size > D.shape[0]:
             raise Exception('The number of sample of sample is superieur than the shape of D')
 
         P = D.sample(n= sample_size)
 
         return P
 
-    def do_neirest_neigbbors(self,P,D):
+    def do_neirest_neigbbors(self,P,D,first):
         '''
         return an array X containing the distance between P points and their
         neirest neigbors in D
         '''
-
-        _tree = BallTree(D)
-        dist , = _tree.query(P, k=1)
         
+        tree = BallTree(D,leaf_size=2)
 
-        return dist
+        dist, _ = tree.query(P, k=first)
+
+        if first == 2 : 
+            return dist[:,1]
+        else :
+            return dist
 
     def do_simulate_points(self,D,sample_size):
         '''
@@ -57,21 +59,21 @@ class Hopkins():
         return the Hopkins score
         '''
 
-        numerator = sum(Y)
-        denominator = sum(X) + sum(Y)
+        x = sum(X)
+        y = sum(Y)
 
-        if (denominator == 0):
+        if ( x+y == 0):
             raise Exception('The denominator of the hopkins statistics is null')
 
-        return numerator/denominator
+        return x/(x+y)
 
 
-    def eval(self, D,sampling_size):
+    def evalue(self):
 
-        P = self.do_sampling(D,sampling_size)
-        X = self.do_neirest_neigbbors(P,D)
-        Q = self.do_simulate_points(D,sampling_size)
-        Y = self.do_neirest_neigbbors(Q,D)
+        P = self.do_sampling(self.D, self.sampling_size)
+        X = self.do_neirest_neigbbors(P,self.D,2)
+        Q = self.do_simulate_points(self.D,self.sampling_size)
+        Y = self.do_neirest_neigbbors(Q,self.D,1)
 
         return self.evaluate_hopkins(X,Y)
 
