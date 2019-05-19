@@ -1,7 +1,3 @@
-
-
-
-
 class VAT():
 
     def main(): 

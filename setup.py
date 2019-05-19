@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="PTC",
+    name="PyClusterTend",
     version="0.0.1",
     author="Ismaël Lachheb",
     author_email="ismael.lachheb@protonmail.com",
-    description="A cluster to assess cluster tendency of a datasets",
+    description="A Package to assess cluster tendency",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject", #TOADD
+    url="https://github.com/lachhebo/pyclustertend", #TOADD
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
