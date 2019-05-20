@@ -1,3 +1,0 @@
-class VAT():
-
-    def main(): 
