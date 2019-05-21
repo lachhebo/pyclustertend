@@ -13,7 +13,7 @@ class HopkinsTest(unittest.TestCase):
         '''
 
         ## Arrange
-        D = pd.read_csv('data/Concrete_Data_Yeh.csv')
+        D = pd.read_csv('tests/data/Concrete_Data_Yeh.csv')
         size = 10
         hop = hopkins.Hopkins(D,size)
 
@@ -31,7 +31,7 @@ class HopkinsTest(unittest.TestCase):
         '''
         
         ## Arrange
-        P = pd.read_csv('data/Concrete_Data_Yeh.csv')
+        P = pd.read_csv('tests/data/Concrete_Data_Yeh.csv')
         #D = pd.read_csv('data/faithful.csv')
         size = 10
         hop = hopkins.Hopkins(P,size)
@@ -52,7 +52,7 @@ class HopkinsTest(unittest.TestCase):
         '''
         
         ## Arrange
-        D = pd.read_csv('data/Concrete_Data_Yeh.csv')
+        D = pd.read_csv('tests/data/Concrete_Data_Yeh.csv')
         size = 20
         hop = hopkins.Hopkins(D,size)
 
@@ -86,19 +86,19 @@ class HopkinsTest(unittest.TestCase):
         entry : a Dataframe D and a sampling_size 
         return the hopkins statistics of the dataframe.
         '''
-        D = pd.read_csv('data/Concrete_Data_Yeh.csv')
+        D = pd.read_csv('tests/data/Concrete_Data_Yeh.csv')
 
         hop = hopkins.Hopkins(D,200)
 
         l = []
-        for i in range (0,20):
+        for i in range (0,100):
             l.append(hop.evalue())
     
         
         mean_hopkins = np.mean(l)
-        
+
         self.assertTrue(mean_hopkins >= 0.08)
-        self.assertTrue(mean_hopkins <= 0.09)
+        self.assertTrue(mean_hopkins <= 0.1)
 
 
 if __name__ == '__main__':
