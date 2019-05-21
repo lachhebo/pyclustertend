@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyclustertend",
-    version="1.0.0",
+    version="1.0.1",
     author="Ismaël Lachheb",
     author_email="ismael.lachheb@protonmail.com",
     description="A Package to assess cluster tendency",
