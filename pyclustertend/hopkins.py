@@ -62,7 +62,7 @@ class Hopkins:
         x = sum(X)
         y = sum(Y)
 
-        if ( x+y == 0):
+        if (x+y == 0):
             raise Exception('The denominator of the hopkins statistics is null')
 
         return x/(x+y)

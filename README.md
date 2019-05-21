@@ -7,7 +7,7 @@ evalution.
 
 Two methods for assessing cluster tendency currently being implemented  :
 
-- [x] Hoptinks Statistics :
+- [x] Hopkins Statistics :
 - [ ] VAT : 
 
 ## Usage : 

@@ -2,11 +2,9 @@ pyclustertend/.ipynb_checkpoints
 pyclustertend/hopkins.ipynb
 pyclustertend/Untitled.ipynb
 pyclustertend/__pycache__/
-tests/.RData
-tests/.Rhistory
-tests/test_faithful.r
+tests/__pycache__/
 build/
 dist/ 
-PyClusterTend.egg-info/
+pyclustertend.egg-info/
 pyclustertend/compresive_strength_concrete.csv
 
