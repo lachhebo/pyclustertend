@@ -6,4 +6,4 @@ install:
   - pip3 install -r requirements.txt
 
 script:
-- xvfb-run -a python3 -m unittest discover
+- pytest -v test/hopkins_test.py
