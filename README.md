@@ -1,19 +1,17 @@
-# PyClusterTend
+# pyclustertend
 
 ## Presentation : 
 
-PTC is a python package to do cluster tendency evaluation. More information about cluster tendency 
-evalution.
+pyclustertend is a python package to do cluster tendency evaluation. Clustertendency consist to check if clusters exist in the data.
 
-Two methods for assessing cluster tendency currently being implemented  :
+One method for assessing cluster tendency is currently implemented  :
 
-- [x] Hopkins Statistics :
-- [ ] VAT : 
+- [x] Hopkins Statistics 
 
 ## Usage : 
 
-
-## Support/Donation : 
-
-
-Ismaël Lachheb :  https://paypal.me/lachhebo
+```python
+    D = pd.read_csv('Concrete_Data_Yeh.csv')
+    from pyclustertend import Hopkins
+    hop = Hopkins(D,200)
+```
