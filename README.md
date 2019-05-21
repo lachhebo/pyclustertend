@@ -1,4 +1,4 @@
-# pyclustertend
+# pyclustertend [![Build Status](https://travis-ci.com/lachhebo/pyclustertend.svg?branch=master)](https://travis-ci.com/lachhebo/pyclustertend)
 
 ## Presentation : 
 
