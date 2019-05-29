@@ -14,4 +14,6 @@ One method for assessing cluster tendency is currently implemented  :
     D = pd.read_csv('Concrete_Data_Yeh.csv')
     from pyclustertend import Hopkins
     hop = Hopkins(D,200)
+    score = hop.fit()
+    print(score)
 ```

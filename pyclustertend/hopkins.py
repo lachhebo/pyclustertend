@@ -68,7 +68,7 @@ class Hopkins:
         return x/(x+y)
 
 
-    def evalue(self):
+    def fit(self):
 
         P = self.do_sampling(self.D, self.sampling_size)
         X = self.do_neirest_neigbbors(P,self.D,2)
