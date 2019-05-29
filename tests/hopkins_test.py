@@ -81,7 +81,7 @@ class HopkinsTest(unittest.TestCase):
         '''
         pass
 
-    def test_eval(self): 
+    def test_fit(self): 
         '''
         entry : a Dataframe D and a sampling_size 
         return the hopkins statistics of the dataframe.
@@ -92,7 +92,7 @@ class HopkinsTest(unittest.TestCase):
 
         l = []
         for i in range (0,100):
-            l.append(hop.evalue())
+            l.append(hop.fit())
     
         
         mean_hopkins = np.mean(l)
