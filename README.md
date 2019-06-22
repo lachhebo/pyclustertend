@@ -2,7 +2,7 @@
 
 ## Presentation : 
 
-pyclustertend is a python package to do cluster tendency. Cluster tendency consist to assess if clustering algorithm are relevant for a dataset.
+pyclustertend is a python package to do cluster tendency. Cluster tendency consist to assess if clustering algorithms are relevant for a dataset.
 
 One method for assessing cluster tendency is currently implemented  :
 
