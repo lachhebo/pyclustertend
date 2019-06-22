@@ -1,2 +1,2 @@
 name = "pyclustertend"
-from pyclustertend.hopkins import Hopkins
+from .metrics import hopkins
