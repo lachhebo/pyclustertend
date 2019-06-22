@@ -7,4 +7,5 @@ build/
 dist/ 
 pyclustertend.egg-info/
 pyclustertend/compresive_strength_concrete.csv
-
+.ipynb_checkpoints/
+.pytest_cache/
