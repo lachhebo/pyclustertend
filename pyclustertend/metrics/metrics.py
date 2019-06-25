@@ -5,15 +5,31 @@ from numpy.random import uniform
 import pandas as pd
 
 
-def hopkins(df, sampling_size):
+def hopkins(X, sampling_size):
+    """Assess the clusterability of a dataset.
 
-    if type(df) == np.ndarray:
-        df = pd.DataFrame(df)
-    df = df 
+    Parameters
+    ----------
+    X : numpy array, DataFrame
+        The input dataset 
+
+    sampling_size : int 
+        The sampling size which is used to evaluate the number of DataFrame.
+
+    Returns
+    -------
+    hopkins score : float or raise errors
+        The hopkins score of the dataset (between 0 and 1)
+
+    """
+
+    if type(X) == np.ndarray:
+        X = pd.DataFrame(X)
+    X = X 
 
 
     sampling_size = sampling_size
-    return  fit(df, sampling_size)[0]
+    return  fit(X, sampling_size)[0]
 
 def do_sampling(D,sample_size): 
     '''
