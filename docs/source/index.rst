@@ -27,6 +27,19 @@ Welcome to pyclustertend's documentation!
    :target: https://github.com/lachhebo/pyclustertend/network
    :alt: GitHub forks
 
+.. image:: https://pepy.tech/badge/pyclustertend
+   :target: https://pepy.tech/project/pyclustertend
+   :alt: Downloads
+
+.. image:: https://pepy.tech/badge/pyclustertend/month
+   :target: https://pepy.tech/project/pyclustertend/month
+   :alt: Downloads_month
+
+.. image:: https://pepy.tech/badge/pyclustertend/week
+   :target: https://pepy.tech/project/pyclustertend/week
+   :alt: Downloads_week
+
+
 **Build Status & Coverage & Maintainability & License**
 
 .. image:: https://travis-ci.com/lachhebo/pyclustertend.svg?branch=master
@@ -38,15 +51,6 @@ Welcome to pyclustertend's documentation!
 pyclustertend is a **Python toolkit** for **assessing cluster tendency**.
 Cluster tendency is about discovering the existence of cluster's
 in multivariate data (link to wikipedia).
-
-
-
-**Note on Python 2.7**\ :
-
-
-The python package is not available in python 2
-and only tested on Linux for the moments.
-
 
 
 **API Demo**\ :
@@ -68,15 +72,8 @@ and only tested on Linux for the moments.
 
 
 
-
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-
-
-.. toctree::
-   :maxdepth: 2
-   :hidden:
    :caption: Documentation
 
    pyclustertend
@@ -85,7 +82,6 @@ and only tested on Linux for the moments.
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: Additional Information
 
    about

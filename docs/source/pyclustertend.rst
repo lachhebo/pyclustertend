@@ -1,17 +1,23 @@
 API Reference
 =============
 
-.. toctree::
 
-    pyclustertend.metrics
-    pyclustertend.visuals
+Hopkins Test
+-------------
 
-Module contents
----------------
-
-.. automodule:: pyclustertend
+.. automodule:: pyclustertend.hopkins
     :members:
-    :exclude-members: __version__
     :undoc-members:
     :show-inheritance:
     :inherited-members:
+
+
+VAT
+-------------
+
+.. automodule:: pyclustertend.VAT
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
+
