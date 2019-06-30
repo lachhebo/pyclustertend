@@ -4,6 +4,7 @@ API Reference
 .. toctree::
 
     pyclustertend.metrics
+    pyclustertend.visuals
 
 Module contents
 ---------------

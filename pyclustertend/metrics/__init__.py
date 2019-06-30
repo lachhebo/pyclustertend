@@ -1,2 +1,2 @@
 name = "metrics"
-from .metrics import hopkins
+from .hopkins import hopkins
