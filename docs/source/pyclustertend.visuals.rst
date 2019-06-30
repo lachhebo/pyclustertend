@@ -1,11 +1,11 @@
-Metrics
-=======
+Visualisation
+=============
 
 
-Hopkins Test
+VAT
 -------------
 
-.. automodule:: pyclustertend.metrics.hopkins
+.. automodule:: pyclustertend.visuals.VAT
     :members:
     :undoc-members:
     :show-inheritance:

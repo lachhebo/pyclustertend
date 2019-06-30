@@ -9,3 +9,9 @@ pyclustertend.egg-info/
 pyclustertend/compresive_strength_concrete.csv
 .ipynb_checkpoints/
 .pytest_cache/
+pyclustertend/metrics/__pycache__/
+pyclustertend/metrics/__pycache__
+pyclustertend/metrics/__pycache__/
+.vscode/
+Untitled.ipynb
+

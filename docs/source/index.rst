@@ -19,7 +19,7 @@ Welcome to pyclustertend's documentation!
    :target: https://pyclustertend.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
-image:: https://img.shields.io/github/stars/lachhebo/pyclustertend.svg
+.. image:: https://img.shields.io/github/stars/lachhebo/pyclustertend.svg
    :target: https://github.com/lachhebo/pyclustertend/stargazers
    :alt: GitHub stars
 
@@ -35,15 +35,17 @@ image:: https://img.shields.io/github/stars/lachhebo/pyclustertend.svg
 
 
 
-pyclustertend is a **Python toolkit** for **assessing cluster tendency**. Cluster tendency is 
-about discovering the existence of cluster's in multivariate data. (link to wikipedia)
+pyclustertend is a **Python toolkit** for **assessing cluster tendency**.
+Cluster tendency is about discovering the existence of cluster's
+in multivariate data (link to wikipedia).
 
 
 
 **Note on Python 2.7**\ :
 
 
-The python package is not available in python 2 and only tested on Linux for the moments.
+The python package is not available in python 2
+and only tested on Linux for the moments.
 
 
 
@@ -78,7 +80,6 @@ The python package is not available in python 2 and only tested on Linux for the
    :caption: Documentation
 
    pyclustertend
-
 
 
 
