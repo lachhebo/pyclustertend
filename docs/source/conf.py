@@ -46,7 +46,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
-    'sphinxcontrib.bibtex',
     'sphinx.ext.napoleon',
 ]
 
