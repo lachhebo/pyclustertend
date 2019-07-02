@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd 
 import numpy as np
-from pyclustertend.metrics import hopkins 
+from pyclustertend.hopkins import hopkins 
 from sklearn import datasets
 
 

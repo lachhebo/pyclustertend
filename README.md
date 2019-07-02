@@ -19,10 +19,22 @@ Two methods for assessing cluster tendency are currently implemented  :
 
 ## Usage : 
 
+### Example 1 : 
+
 ```python
     from sklearn import datasets
     from pyclustertend import hopkins
 
     X = datasets.load_iris().data
     hopkins(X,150)
+```
+
+### Example 2 :
+
+```python
+    from sklearn import datasets
+    from pyclustertend import vat
+
+    X = datasets.load_iris().data
+    vat(X,150)
 ```
