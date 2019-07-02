@@ -36,5 +36,5 @@ Two methods for assessing cluster tendency are currently implemented  :
     from pyclustertend import vat
 
     X = datasets.load_iris().data
-    vat(X,150)
+    vat(X)
 ```
