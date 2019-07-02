@@ -74,7 +74,13 @@ in multivariate data (link to wikipedia).
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
+
+
+.. toctree::
+   :maxdepth: 2
    :caption: Documentation
+   :hidden:
 
    pyclustertend
 
@@ -83,6 +89,7 @@ in multivariate data (link to wikipedia).
 .. toctree::
    :maxdepth: 2
    :caption: Additional Information
+   :hidden:
 
    about
 
