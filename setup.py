@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyclustertend",
-    version="1.3.1",
+    version="1.3.2",
     author="Ismaël Lachheb",
     author_email="ismael.lachheb@protonmail.com",
     description="A package to assess cluster tendency",
@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/lachhebo/pyclustertend", 
     keyword = ["cluster tendency", "clustering", "cluster", "machine learning",
-                "hopkins", "VAT"]
+                "hopkins", "VAT"],
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

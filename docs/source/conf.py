@@ -31,7 +31,7 @@ copyright = '2019, Ismaël Lachheb'
 author = 'Ismaël Lachheb'
 
 # The full version, including alpha/beta/rc tags
-release = '1.1.0'
+release = '1.3.2'
 
 
 # -- General configuration ---------------------------------------------------
