@@ -3,7 +3,7 @@ from sklearn.metrics import pairwise_distances
 import matplotlib.pyplot as plt
 
 
-def vat(X, plot=True, return_ODM = False): 
+def vat(X, plot=True, return_ODM = False, figuresize = (10,10)): 
     """VAT means Visual assesement of tendency. basically, it allow to asses cluster tendency
     through a map based on the dissimiliraty matrix. 
 
@@ -19,6 +19,9 @@ def vat(X, plot=True, return_ODM = False):
 
     return_ODM : return the Ordered Dissimalirity Matrix
         boolean (default to False)
+
+    figuresize : size of the VAT.
+        tuple (default to (10,10))
 
 
     Return
@@ -89,10 +92,10 @@ def vat(X, plot=True, return_ODM = False):
     ## Step 4 : 
 
     if plot == True :
-        plt.imshow(ODM, cmap='gray', vmin=0, vmax=np.max(ODM))
+        _, ax = plt.subplots(figsize = figuresize)
         plt.title("VAT")
-        plt.show()
-    
+        ax.imshow(ODM, cmap='gray', vmin=0, vmax=np.max(ODM))
+            
     if return_ODM == True :
         return ODM
 
