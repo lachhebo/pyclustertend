@@ -22,19 +22,22 @@ Two methods for assessing cluster tendency are currently implemented  :
 ### Example 1 : 
 
 ```python
-    from sklearn import datasets
-    from pyclustertend import hopkins
+    >>>from sklearn import datasets
+    >>>from pyclustertend import hopkins
 
-    X = datasets.load_iris().data
-    hopkins(X,150)
+    >>>X = datasets.load_iris().data
+    >>>hopkins(X,150)
+    0.16
 ```
 
 ### Example 2 :
 
 ```python
-    from sklearn import datasets
-    from pyclustertend import vat
+    >>>from sklearn import datasets
+    >>>from pyclustertend import vat
 
-    X = datasets.load_iris().data
-    vat(X)
+    >>>X = datasets.load_iris().data
+    >>>vat(X)
 ```
+
+<img height="350" src="https://raw.githubusercontent.com/lachhebo/pyclustertend/screenshots/vat.png" />
