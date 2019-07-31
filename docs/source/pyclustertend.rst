@@ -21,3 +21,13 @@ VAT
     :show-inheritance:
     :inherited-members:
 
+
+
+Metrics
+-------------
+
+.. automodule:: pyclustertend.metrics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
