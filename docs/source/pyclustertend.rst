@@ -26,7 +26,7 @@ VAT
 Metrics
 -------------
 
-.. automodule:: pyclustertend.metrics
+.. automodule:: pyclustertend.metric
     :members:
     :undoc-members:
     :show-inheritance:

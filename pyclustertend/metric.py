@@ -5,19 +5,19 @@ import numpy as np
 
 
 def assess_tendency_silhouette(X, max_nb_cluster=10, random_state=None):
-    """Assess the clusterability of a dataset using the number of cluster that best scored with the silhouette score using algorithm Birch and Kmeans
+    """Assess the clusterability of a dataset using KMeans algorithm and the silhouette score, the best cluster number is the number that best scored with the silhouette score. 
 
     Parameters
     ----------
     X : numpy array, DataFrame
         The input dataset
     max_nb_cluster : int
-        The number of cluster maximum to consider
+        The maxium number of cluster to consider
     random_state : int (default to None)
 
     Returns
     ---------------------
-    (n_clusters, value) :  n_clusters is the number of cluster that allowed the best silhouette score on Kmeans or Birch. As for value, it is the maximum silhouette score for each number of cluster on KMeans and Birch.
+    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the silhouette score on Kmeans. As for value, it is the silhouette score for each number of cluster on KMeans.
 
     Examples
     --------
@@ -38,42 +38,23 @@ def assess_tendency_silhouette(X, max_nb_cluster=10, random_state=None):
                         random_state=random_state).fit_predict(X)
         result_kmeans = np.append(result_kmeans, silhouette_score(X, labels))
 
-    result_birch = np.array([])
-
-    brc = Birch(n_clusters=None)
-    brc.partial_fit(X)
-
-    for k_cluster in range(2, max_nb_cluster+1):
-
-        brc.set_params(n_clusters=k_cluster)
-        labels = brc.fit_predict(X)
-        result_birch = np.append(result_birch, silhouette_score(X, labels))
-
-    result_final = np.zeros(len(result_birch))
-
-    for i in range(len(result_birch)):
-        if result_birch[i] < result_kmeans[i]:
-            result_final[i] = result_kmeans[i]
-        else:
-            result_final[i] = result_birch[i]
-
-    return np.argmax(result_final) + 2, result_final
+    return np.argmax(result_kmeans) + 2, result_kmeans
 
 
 def assess_tendency_calinski_harabaz(X, max_nb_cluster=10, random_state=None):
-    """Assess the clusterability of a dataset using the number of cluster that best scored with the calinski_harabaz score using algorithm Birch and Kmeans
+    """Assess the clusterability of a dataset using KMeans algorithm and the calinski_harabaz score, the best cluster number is the number that best scored with the calinski_harabaz score. 
 
     Parameters
     ----------
     X : numpy array, DataFrame
         The input dataset
     max_nb_cluster : int
-        The number of cluster maximum to consider
+        The maxium number of cluster to consider
     random_state : int (default to None)
 
     Returns
     ---------------------
-    (n_clusters, value) :  n_clusters is the number of cluster that allowed the best calinski_harabaz score on Kmeans or Birch. As for value, it is the maximum calinski_harabaz score for each number of cluster on KMeans and Birch.
+    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the calinski_harabaz score on Kmeans. As for value, it is the calinski_harabaz score for each number of cluster on KMeans.
 
     Examples
     --------
@@ -94,43 +75,23 @@ def assess_tendency_calinski_harabaz(X, max_nb_cluster=10, random_state=None):
         result_kmeans = np.append(
             result_kmeans, calinski_harabaz_score(X, labels))
 
-    result_birch = np.array([])
-
-    brc = Birch(n_clusters=None)
-    brc.partial_fit(X)
-
-    for k_cluster in range(2, max_nb_cluster+1):
-
-        brc.set_params(n_clusters=k_cluster)
-        labels = brc.fit_predict(X)
-        result_birch = np.append(
-            result_birch, calinski_harabaz_score(X, labels))
-
-    result_final = np.zeros(len(result_birch))
-
-    for i in range(len(result_birch)):
-        if result_birch[i] < result_kmeans[i]:
-            result_final[i] = result_kmeans[i]
-        else:
-            result_final[i] = result_birch[i]
-
-    return np.argmax(result_final) + 2, result_final
+    return np.argmax(result_kmeans) + 2, result_kmeans
 
 
 def assess_tendency_davies_bouldin(X, max_nb_cluster=10, random_state=None):
-    """Assess the clusterability of a dataset using the number of cluster that best scored with the davies_bouldin score using algorithm Birch and Kmeans
-assess_tendency_silhouette
+    """Assess the clusterability of a dataset using KMeans algorithm and the davies_bouldin score, the best cluster number is the number that best scored with the davies_bouldin score. 
+
     Parameters
     ----------
     X : numpy array, DataFrame
         The input dataset
     max_nb_cluster : int
-        The number of cluster maximum to consider
+        The maxium number of cluster to consider
     random_state : int (default to None)
 
     Returns
     ---------------------
-    (n_clusters, value) :  n_clusters is the number of cluster that allowed the best davies_bouldin score on Kmeans or Birch. As for value, it is the minimum davies_bouldin score for each number of cluster on KMeans and Birch.
+    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the davies_bouldin score on Kmeans. As for value, it is the davies_bouldin score for each number of cluster on KMeans.
 
     Examples
     --------
@@ -151,27 +112,16 @@ assess_tendency_silhouette
         result_kmeans = np.append(
             result_kmeans, davies_bouldin_score(X, labels))
 
-    result_birch = np.array([])
+    return np.argmin(result_kmeans) + 2, result_kmeans
 
-    brc = Birch(n_clusters=None)
-    brc.partial_fit(X)
 
-    for k_cluster in range(2, max_nb_cluster+1):
 
-        brc.set_params(n_clusters=k_cluster)
-        labels = brc.fit_predict(X)
-        result_birch = np.append(
-            result_birch, davies_bouldin_score(X, labels))
+def assess_tendency_by_metrics(X, max_nb_cluster=10, random_state=None):
 
-    result_final = np.zeros(len(result_birch))
 
-    for i in range(len(result_birch)):
-        if result_birch[i] > result_kmeans[i]:
-            result_final[i] = result_kmeans[i]
-        else:
-            result_final[i] = result_birch[i]
+    silhouette_best, _ = assess_tendency_silhouette(X, max_nb_cluster= max_nb_cluster, random_state= random_state)
+    calinski_best, _   = assess_tendency_calinski_harabaz(X, max_nb_cluster= max_nb_cluster, random_state= random_state)
+    davies_best, _     = assess_tendency_davies_bouldin(X, max_nb_cluster= max_nb_cluster, random_state= random_state)
 
-    print(result_birch)
-    print(result_kmeans)
+    return np.mean([silhouette_best, calinski_best, davies_best])
 
-    return np.argmin(result_final) + 2, result_final
