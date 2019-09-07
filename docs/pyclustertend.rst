@@ -2,32 +2,32 @@ API Reference
 =============
 
 
-Hopkins Test
--------------
-
-.. automodule:: pyclustertend.hopkins
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-
-
-VAT
--------------
+VAT module
+------------------------
 
 .. automodule:: pyclustertend.VAT
     :members:
+    :exclude-members:
     :undoc-members:
     :show-inheritance:
     :inherited-members:
 
+hopkins module
+----------------------------
 
+.. automodule:: pyclustertend.hopkins
+    :members:
+    :exclude-members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
 
-Metrics
--------------
+metric module
+---------------------------
 
 .. automodule:: pyclustertend.metric
     :members:
+    :exclude-members:
     :undoc-members:
     :show-inheritance:
     :inherited-members:

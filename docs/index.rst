@@ -1,10 +1,11 @@
 .. pyclustertend documentation master file, created by
-   sphinx-quickstart on Mon Jun 24 22:17:12 2019.
+   sphinx-quickstart on Sat Sep  7 09:15:14 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
 Welcome to pyclustertend's documentation!
 =========================================
+
 
 
 
@@ -35,10 +36,6 @@ Welcome to pyclustertend's documentation!
    :target: https://pepy.tech/project/pyclustertend/month
    :alt: Downloads_month
 
-.. image:: https://pepy.tech/badge/pyclustertend/week
-   :target: https://pepy.tech/project/pyclustertend/week
-   :alt: Downloads_week
-
 
 **Build Status & Coverage & Maintainability & License**
 
@@ -49,8 +46,8 @@ Welcome to pyclustertend's documentation!
 
 
 pyclustertend is a **Python toolkit** for **assessing cluster tendency**.
-Cluster tendency is about discovering the existence of cluster's
-in multivariate data (link to wikipedia).
+Cluster tendency is about discovering the existence of clusters
+in multivariate data (http://www.sthda.com/english/wiki/print.php?id=238).
 
 
 **API Demo**\ :
@@ -69,8 +66,6 @@ in multivariate data (link to wikipedia).
 
 * `View the latest codes on Github <https://github.com/lachhebo/pyclustertend>`_
 
-
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -78,24 +73,8 @@ in multivariate data (link to wikipedia).
 
 .. toctree::
    :maxdepth: 2
-   :caption: Documentation
    :hidden:
+   :caption: Documentation
 
    pyclustertend
 
-
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Additional Information
-   :hidden:
-
-   about
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

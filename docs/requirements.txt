@@ -9,3 +9,5 @@ sphinxcontrib-jsmath
 sphinxcontrib-qthelp                      
 sphinxcontrib-serializinghtml             
 sphinxcontrib-websupport      
+scikit-learn
+pyclustertend
