@@ -36,6 +36,8 @@ release = '1.3.3'
 
 # -- General configuration ---------------------------------------------------
 
+master_doc = 'index'
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
@@ -54,10 +56,6 @@ extensions = [
 
 #pygments_style = 'sphinx'
 #templates_path = ['_templates']
-
-source_suffix = '.rst'
-master_doc = 'index'
-
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
