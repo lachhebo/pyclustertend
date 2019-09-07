@@ -60,10 +60,9 @@ in multivariate data (link to wikipedia).
 
     from sklearn import datasets
     from pyclustertend import hopkins
-
-    X = datasets.load_iris().data
+    from sklearn.preprocessing import scale
+    X = scale(datasets.load_iris().data)
     hopkins(X,150)
-
 
 
 **Key Links and Resources**\ :
