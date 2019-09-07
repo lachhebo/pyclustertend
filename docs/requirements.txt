@@ -1,4 +1,4 @@
-Sphinx                                    >= 2.1.2
+sphinx == 2.2.0
 sphinx-autobuild                          
 sphinx-gallery                            
 sphinx-rtd-theme                          
