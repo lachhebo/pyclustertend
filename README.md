@@ -6,10 +6,12 @@
 
 pyclustertend is a python package to do cluster tendency. Cluster tendency consist to assess if clustering algorithms are relevant for a dataset.
 
-Two methods for assessing cluster tendency are currently implemented  :
+
+Three methods for assessing cluster tendency are currently implemented  :
 
 - [x] Hopkins Statistics 
 - [x] VAT
+- [x] Metric based method (silhouette, calinksi, davies bouldin)
 
 ## Installation : 
 
@@ -19,25 +21,38 @@ Two methods for assessing cluster tendency are currently implemented  :
 
 ## Usage : 
 
-### Example 1 : 
+### Example Hopkins : 
 
 ```python
     >>>from sklearn import datasets
     >>>from pyclustertend import hopkins
-
-    >>>X = datasets.load_iris().data
+    >>>from sklearn.preprocessing import scale
+    >>>X = scale(datasets.load_iris().data)
     >>>hopkins(X,150)
-    0.16
+    0.18950453452838564
 ```
 
-### Example 2 :
+### Example VAT :
 
 ```python
     >>>from sklearn import datasets
     >>>from pyclustertend import vat
-
-    >>>X = datasets.load_iris().data
+    >>>from sklearn.preprocessing import scale
+    >>>X = scale(datasets.load_iris().data)
     >>>vat(X)
 ```
 
 <img height="350" src="https://raw.githubusercontent.com/lachhebo/pyclustertend/screenshots/vat.png" />
+
+
+### Example Metric : 
+
+
+```python
+    >>>from sklearn import datasets
+    >>>from pyclustertend import assess_tendency_by_metrics
+    >>>from sklearn.preprocessing import scale
+    >>>X = scale(datasets.load_iris().data)
+    >>>assess_tendency_by_metrics(X)
+    2.0
+```
