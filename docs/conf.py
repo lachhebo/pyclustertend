@@ -14,9 +14,9 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath('..'))
-pyod_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+pyclustertend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-version_path = os.path.join(pyod_dir, 'pyclustertend', 'version.py')
+version_path = os.path.join(pyclustertend_dir, 'pyclustertend', 'version.py')
 exec(open(version_path).read())
 
 # -- Project information -----------------------------------------------------

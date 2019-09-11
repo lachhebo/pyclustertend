@@ -1,3 +1,6 @@
+.coverage
+.coveragerc
+coverage.xml
 pyclustertend/.ipynb_checkpoints
 pyclustertend/hopkins.ipynb
 pyclustertend/Untitled.ipynb
