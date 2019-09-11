@@ -7,3 +7,4 @@ install:
 
 script:
 - pytest -v tests/
+- codecov
