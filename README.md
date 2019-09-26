@@ -12,6 +12,7 @@ Three methods for assessing cluster tendency are currently implemented  :
 
 - [x] Hopkins Statistics 
 - [x] VAT
+- [x] iVAT
 - [x] Metric based method (silhouette, calinksi, davies bouldin)
 
 ## Installation : 

@@ -5,7 +5,7 @@ API Reference
 VAT module
 ------------------------
 
-.. automodule:: pyclustertend.VAT
+.. automodule:: pyclustertend.vat
     :members:
     :exclude-members:
     :undoc-members:
