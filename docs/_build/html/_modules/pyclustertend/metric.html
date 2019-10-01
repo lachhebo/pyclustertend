@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyclustertend.metric &mdash; pyclustertend 1.3.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyclustertend
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pyclustertend.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyclustertend</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyclustertend.metric</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyclustertend.metric</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">silhouette_score</span><span class="p">,</span> <span class="n">calinski_harabaz_score</span><span class="p">,</span> <span class="n">davies_bouldin_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="k">import</span> <span class="n">KMeans</span><span class="p">,</span> <span class="n">Birch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="assess_tendency_silhouette"><a class="viewcode-back" href="../../pyclustertend.html#pyclustertend.metric.assess_tendency_silhouette">[docs]</a><span class="k">def</span> <span class="nf">assess_tendency_silhouette</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Assess the clusterability of a dataset using KMeans algorithm and the silhouette score, the best cluster number is the number that best scored with the silhouette score. </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : numpy array, DataFrame</span>
+<span class="sd">        The input dataset</span>
+<span class="sd">    max_nb_cluster : int</span>
+<span class="sd">        The maxium number of cluster to consider</span>
+<span class="sd">    random_state : int (default to None)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------</span>
+<span class="sd">    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the silhouette score on Kmeans. As for value, it is the silhouette score for each number of cluster on KMeans.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn import datasets</span>
+<span class="sd">    &gt;&gt;&gt; from pyclustertend import assess_tendency_silhouette</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.preprocessing import scale</span>
+<span class="sd">    &gt;&gt;&gt; X = scale(datasets.load_boston().data)</span>
+<span class="sd">    &gt;&gt;&gt; assess_tendency_silhouette(X,10)</span>
+<span class="sd">    (2, array([0.36011769, 0.25740335, 0.28098046, 0.28781574, 0.26746932,</span>
+<span class="sd">        0.26975514, 0.27155699, 0.28883395, 0.29028124]))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">result_kmeans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+    <span class="k">for</span> <span class="n">k_cluster</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k_cluster</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">result_kmeans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_kmeans</span><span class="p">,</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">result_kmeans</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">result_kmeans</span></div>
+
+<div class="viewcode-block" id="assess_tendency_calinski_harabaz"><a class="viewcode-back" href="../../pyclustertend.html#pyclustertend.metric.assess_tendency_calinski_harabaz">[docs]</a><span class="k">def</span> <span class="nf">assess_tendency_calinski_harabaz</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Assess the clusterability of a dataset using KMeans algorithm and the calinski_harabaz score, the best cluster number is the number that best scored with the calinski_harabaz score. </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : numpy array, DataFrame</span>
+<span class="sd">        The input dataset</span>
+<span class="sd">    max_nb_cluster : int</span>
+<span class="sd">        The maxium number of cluster to consider</span>
+<span class="sd">    random_state : int (default to None)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------</span>
+<span class="sd">    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the calinski_harabaz score on Kmeans. As for value, it is the calinski_harabaz score for each number of cluster on KMeans.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn import datasets</span>
+<span class="sd">    &gt;&gt;&gt; from pyclustertend import assess_tendency_calinski_harabaz</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.preprocessing import scale</span>
+<span class="sd">    &gt;&gt;&gt; X = scale(datasets.load_boston().data)</span>
+<span class="sd">    &gt;&gt;&gt; assess_tendency_calinski_harabaz(X,10)</span>
+<span class="sd">    (2, array([286.08249447, 219.25073844, 187.90633666, 176.54408944,</span>
+<span class="sd">        169.44923471, 163.29755259, 160.66682836, 158.65038162,</span>
+<span class="sd">        151.76885495]))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result_kmeans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+    <span class="k">for</span> <span class="n">k_cluster</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k_cluster</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">result_kmeans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">result_kmeans</span><span class="p">,</span> <span class="n">calinski_harabaz_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">result_kmeans</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">result_kmeans</span></div>
+
+<div class="viewcode-block" id="assess_tendency_davies_bouldin"><a class="viewcode-back" href="../../pyclustertend.html#pyclustertend.metric.assess_tendency_davies_bouldin">[docs]</a><span class="k">def</span> <span class="nf">assess_tendency_davies_bouldin</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Assess the clusterability of a dataset using KMeans algorithm and the davies_bouldin score, the best cluster number is the number that best scored with the davies_bouldin score. </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : numpy array, DataFrame</span>
+<span class="sd">        The input dataset</span>
+<span class="sd">    max_nb_cluster : int</span>
+<span class="sd">        The maxium number of cluster to consider</span>
+<span class="sd">    random_state : int (default to None)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------</span>
+<span class="sd">    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the davies_bouldin score on Kmeans. As for value, it is the davies_bouldin score for each number of cluster on KMeans.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn import datasets</span>
+<span class="sd">    &gt;&gt;&gt; from pyclustertend import assess_tendency_davies_bouldin</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.preprocessing import scale</span>
+<span class="sd">    &gt;&gt;&gt; X = scale(datasets.load_boston().data)</span>
+<span class="sd">    &gt;&gt;&gt; assess_tendency_davies_bouldin(X,10)</span>
+<span class="sd">    (9, array([1.19025242, 1.31822679, 1.171196  , 1.24124198, 1.23071422,</span>
+<span class="sd">        1.23071946, 1.24731647, 1.10070805, 1.16275418]))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result_kmeans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+    <span class="k">for</span> <span class="n">k_cluster</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k_cluster</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">result_kmeans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">result_kmeans</span><span class="p">,</span> <span class="n">davies_bouldin_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">result_kmeans</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">result_kmeans</span></div>
+
+<div class="viewcode-block" id="assess_tendency_by_metrics"><a class="viewcode-back" href="../../pyclustertend.html#pyclustertend.metric.assess_tendency_by_metrics">[docs]</a><span class="k">def</span> <span class="nf">assess_tendency_by_metrics</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Assess the clusterability of a dataset using KMeans algorithm and the silhouette, calinski and davies bouldin score, the best cluster number is the mean of the result of the three methods. </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : numpy array, DataFrame</span>
+<span class="sd">        The input dataset</span>
+<span class="sd">    max_nb_cluster : int</span>
+<span class="sd">        The maxium number of cluster to consider</span>
+<span class="sd">    random_state : int (default to None)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------</span>
+<span class="sd">    n_clusters :  n_clusters is the mean of the best number of cluster score (with Kmeans algorithm)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn import datasets</span>
+<span class="sd">    &gt;&gt;&gt; from pyclustertend import assess_tendency_by_metrics</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.preprocessing import scale</span>
+<span class="sd">    &gt;&gt;&gt; X = scale(datasets.load_boston().data)</span>
+<span class="sd">    &gt;&gt;&gt; assess_tendency_by_metrics(X,10)</span>
+<span class="sd">    2.6666666666666665</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">silhouette_best</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">assess_tendency_silhouette</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">=</span> <span class="n">max_nb_cluster</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span> <span class="n">random_state</span><span class="p">)</span>
+    <span class="n">calinski_best</span><span class="p">,</span> <span class="n">_</span>   <span class="o">=</span> <span class="n">assess_tendency_calinski_harabaz</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">=</span> <span class="n">max_nb_cluster</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span> <span class="n">random_state</span><span class="p">)</span>
+    <span class="n">davies_best</span><span class="p">,</span> <span class="n">_</span>     <span class="o">=</span> <span class="n">assess_tendency_davies_bouldin</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">max_nb_cluster</span><span class="o">=</span> <span class="n">max_nb_cluster</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span> <span class="n">random_state</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">silhouette_best</span><span class="p">,</span> <span class="n">calinski_best</span><span class="p">,</span> <span class="n">davies_best</span><span class="p">])</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ismaël Lachheb
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
