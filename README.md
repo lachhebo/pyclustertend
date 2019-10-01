@@ -2,28 +2,25 @@
 
 
 
+pyclustertend is a python package specialized in cluster tendency. Cluster tendency consist to assess if clustering algorithms are relevant for a dataset.
 
-## Presentation : 
+Three methods for assessing cluster tendency are currently implemented and one additional method based on metrics obtained with a KMeans estimator :
 
-pyclustertend is a python package to do cluster tendency. Cluster tendency consist to assess if clustering algorithms are relevant for a dataset.
-
-
-Three methods for assessing cluster tendency are currently implemented  :
-
-- [x] Hopkins Statistics 
+- [x] Hopkins Statistics
 - [x] VAT
 - [x] iVAT
+
 - [x] Metric based method (silhouette, calinksi, davies bouldin)
 
-## Installation : 
+## Installation :
 
 ```shell
     pip install pyclustertend
 ```
 
-## Usage : 
+## Usage :
 
-### Example Hopkins : 
+### Example Hopkins :
 
 ```python
     >>>from sklearn import datasets
@@ -46,15 +43,26 @@ Three methods for assessing cluster tendency are currently implemented  :
 
 <img height="350" src="https://raw.githubusercontent.com/lachhebo/pyclustertend/screenshots/vat.png" />
 
-
-### Example Metric : 
+### Example iVat :
 
 
 ```python
     >>>from sklearn import datasets
-    >>>from pyclustertend import assess_tendency_by_metrics
+    >>>from pyclustertend import ivat
     >>>from sklearn.preprocessing import scale
     >>>X = scale(datasets.load_iris().data)
-    >>>assess_tendency_by_metrics(X)
-    2.0
+    >>>ivat(X)
 ```
+
+<img height="350" src="https://raw.githubusercontent.com/lachhebo/pyclustertend/screenshots/ivat.png" />
+
+
+# Source and Notes :
+
+The main article used to develop this package is available here :
+
+- https://www.researchgate.net/publication/224218006_An_Efficient_Formulation_of_the_Improved_Visual_Assessment_of_Cluster_Tendency_iVAT_Algorithm/link/0912f50fb54089734a000000
+
+
+It's preferable to scale the data before using hopkins or vat algorithm as they use distance between observations. Moreover, vat and ivat algorithms
+do not really fit to massive databases. For the user, a first solution is to sample the data before using those algorithms. As for the maintainer of this implementation, it could be useful to represent the dissimalirity matrix in a smarter way to decrease the time complexity.
