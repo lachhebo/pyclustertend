@@ -1,4 +1,7 @@
-# pyclustertend [![Build Status](https://travis-ci.com/lachhebo/pyclustertend.svg?branch=master)](https://travis-ci.com/lachhebo/pyclustertend)  [![PyPi Status](https://img.shields.io/pypi/v/pyclustertend.svg?color=brightgreen)](https://pypi.org/project/pyclustertend/) [![Documentation Status](https://readthedocs.org/projects/pyclustertend/badge/?version=master)](https://pyclustertend.readthedocs.io/en/master/) [![Downloads](https://pepy.tech/badge/pyclustertend)](https://pepy.tech/project/pyclustertend) [![codecov](https://codecov.io/gh/lachhebo/pyclustertend/branch/master/graph/badge.svg)](https://codecov.io/gh/lachhebo/pyclustertend)
+# pyclustertend 
+[![Build Status](https://travis-ci.com/lachhebo/pyclustertend.svg?branch=master)](https://travis-ci.com/lachhebo/pyclustertend)  [![PyPi Status](https://img.shields.io/pypi/v/pyclustertend.svg?color=brightgreen)](https://pypi.org/project/pyclustertend/) [![Documentation Status](https://readthedocs.org/projects/pyclustertend/badge/?version=master)](https://pyclustertend.readthedocs.io/en/master/) [![Downloads](https://pepy.tech/badge/pyclustertend)](https://pepy.tech/project/pyclustertend) [![codecov](https://codecov.io/gh/lachhebo/pyclustertend/branch/master/graph/badge.svg)](https://codecov.io/gh/lachhebo/pyclustertend)
+[![DOI](https://zenodo.org/badge/187477036.svg)](https://zenodo.org/badge/latestdoi/187477036)
+
 
 
 
