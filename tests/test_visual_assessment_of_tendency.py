@@ -18,7 +18,7 @@ def test_compute_ordered_dissimilarity_matrix():
     ordered_matrix = compute_ordered_dissimilarity_matrix(iris_dataset)
 
     # then
-    np.testing.assert_array_equal(ordered_matrix, expected_ordered_matrix)
+    np.testing.assert_allclose(ordered_matrix, expected_ordered_matrix, atol=0.1)
 
 
 def test_compute_ivat_ordered_dissimilarity_matrix():
@@ -31,7 +31,7 @@ def test_compute_ivat_ordered_dissimilarity_matrix():
     ordered_matrix = compute_ivat_ordered_dissimilarity_matrix(iris_dataset)
 
     # then
-    np.testing.assert_array_equal(ordered_matrix, expected_ordered_matrix)
+    np.testing.assert_allclose(ordered_matrix, expected_ordered_matrix, atol=0.1)
 
 
 @patch('pyclustertend.visual_assessment_of_tendency.compute_ivat_ordered_dissimilarity_matrix')
