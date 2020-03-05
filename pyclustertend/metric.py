@@ -1,10 +1,11 @@
 from sklearn.metrics import silhouette_score, calinski_harabaz_score, davies_bouldin_score
-from sklearn.cluster import KMeans, Birch
+from sklearn.cluster import KMeans
 import numpy as np
 
 
 def assess_tendency_silhouette(X, max_nb_cluster=10, random_state=None):
-    """Assess the clusterability of a dataset using KMeans algorithm and the silhouette score, the best cluster number is the number that best scored with the silhouette score. 
+    """Assess the clusterability of a dataset using KMeans algorithm and the silhouette score, the best cluster number
+    is the number that best scored with the silhouette score.
 
     Parameters
     ----------
@@ -16,7 +17,8 @@ def assess_tendency_silhouette(X, max_nb_cluster=10, random_state=None):
 
     Returns
     ---------------------
-    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the silhouette score on Kmeans. As for value, it is the silhouette score for each number of cluster on KMeans.
+    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the silhouette score on Kmeans.
+    As for value, it is the silhouette score for each number of cluster on KMeans.
 
     Examples
     --------
@@ -32,16 +34,17 @@ def assess_tendency_silhouette(X, max_nb_cluster=10, random_state=None):
 
     result_kmeans = np.array([])
 
-    for k_cluster in range(2, max_nb_cluster+1):
-
+    for k_cluster in range(2, max_nb_cluster + 1):
         labels = KMeans(n_clusters=k_cluster,
                         random_state=random_state).fit_predict(X)
         result_kmeans = np.append(result_kmeans, silhouette_score(X, labels))
 
     return np.argmax(result_kmeans) + 2, result_kmeans
 
+
 def assess_tendency_calinski_harabaz(X, max_nb_cluster=10, random_state=None):
-    """Assess the clusterability of a dataset using KMeans algorithm and the calinski_harabaz score, the best cluster number is the number that best scored with the calinski_harabaz score. 
+    """Assess the clusterability of a dataset using KMeans algorithm and the calinski_harabaz score, the best cluster
+    number is the number that best scored with the calinski_harabaz score.
 
     Parameters
     ----------
@@ -53,7 +56,8 @@ def assess_tendency_calinski_harabaz(X, max_nb_cluster=10, random_state=None):
 
     Returns
     ---------------------
-    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the calinski_harabaz score on Kmeans. As for value, it is the calinski_harabaz score for each number of cluster on KMeans.
+    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the calinski_harabaz score on Kmeans.
+     As for value, it is the calinski_harabaz score for each number of cluster on KMeans.
 
     Examples
     --------
@@ -69,8 +73,7 @@ def assess_tendency_calinski_harabaz(X, max_nb_cluster=10, random_state=None):
     """
     result_kmeans = np.array([])
 
-    for k_cluster in range(2, max_nb_cluster+1):
-
+    for k_cluster in range(2, max_nb_cluster + 1):
         labels = KMeans(n_clusters=k_cluster,
                         random_state=random_state).fit_predict(X)
         result_kmeans = np.append(
@@ -78,8 +81,10 @@ def assess_tendency_calinski_harabaz(X, max_nb_cluster=10, random_state=None):
 
     return np.argmax(result_kmeans) + 2, result_kmeans
 
+
 def assess_tendency_davies_bouldin(X, max_nb_cluster=10, random_state=None):
-    """Assess the clusterability of a dataset using KMeans algorithm and the davies_bouldin score, the best cluster number is the number that best scored with the davies_bouldin score. 
+    """Assess the clusterability of a dataset using KMeans algorithm and the davies_bouldin score, the best cluster
+    number is the number that best scored with the davies_bouldin score.
 
     Parameters
     ----------
@@ -91,7 +96,8 @@ def assess_tendency_davies_bouldin(X, max_nb_cluster=10, random_state=None):
 
     Returns
     ---------------------
-    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the davies_bouldin score on Kmeans. As for value, it is the davies_bouldin score for each number of cluster on KMeans.
+    (n_clusters, value) :  n_clusters is the number of cluster that best scored on the davies_bouldin score on Kmeans.
+    As for value, it is the davies_bouldin score for each number of cluster on KMeans.
 
     Examples
     --------
@@ -106,8 +112,7 @@ def assess_tendency_davies_bouldin(X, max_nb_cluster=10, random_state=None):
     """
     result_kmeans = np.array([])
 
-    for k_cluster in range(2, max_nb_cluster+1):
-
+    for k_cluster in range(2, max_nb_cluster + 1):
         labels = KMeans(n_clusters=k_cluster,
                         random_state=random_state).fit_predict(X)
         result_kmeans = np.append(
@@ -115,8 +120,10 @@ def assess_tendency_davies_bouldin(X, max_nb_cluster=10, random_state=None):
 
     return np.argmin(result_kmeans) + 2, result_kmeans
 
+
 def assess_tendency_by_metrics(X, max_nb_cluster=10, random_state=None):
-    """Assess the clusterability of a dataset using KMeans algorithm and the silhouette, calinski and davies bouldin score, the best cluster number is the mean of the result of the three methods. 
+    """Assess the clusterability of a dataset using KMeans algorithm and the silhouette, calinski and davies bouldin
+    score, the best cluster number is the mean of the result of the three methods.
 
     Parameters
     ----------
@@ -140,10 +147,8 @@ def assess_tendency_by_metrics(X, max_nb_cluster=10, random_state=None):
     2.6666666666666665
     """
 
-
-    silhouette_best, _ = assess_tendency_silhouette(X, max_nb_cluster= max_nb_cluster, random_state= random_state)
-    calinski_best, _   = assess_tendency_calinski_harabaz(X, max_nb_cluster= max_nb_cluster, random_state= random_state)
-    davies_best, _     = assess_tendency_davies_bouldin(X, max_nb_cluster= max_nb_cluster, random_state= random_state)
+    silhouette_best, _ = assess_tendency_silhouette(X, max_nb_cluster=max_nb_cluster, random_state=random_state)
+    calinski_best, _ = assess_tendency_calinski_harabaz(X, max_nb_cluster=max_nb_cluster, random_state=random_state)
+    davies_best, _ = assess_tendency_davies_bouldin(X, max_nb_cluster=max_nb_cluster, random_state=random_state)
 
     return np.mean([silhouette_best, calinski_best, davies_best])
-

@@ -7,7 +7,7 @@ pyclustertend/Untitled.ipynb
 pyclustertend/__pycache__/
 tests/__pycache__/
 build/
-dist/ 
+dist/
 pyclustertend.egg-info/
 pyclustertend/compresive_strength_concrete.csv
 .ipynb_checkpoints/
@@ -19,4 +19,5 @@ pyclustertend/metrics/__pycache__/
 docs/_build/
 Untitled.ipynb
 Untitled1.ipynb
+.idea/
 
