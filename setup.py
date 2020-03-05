@@ -3,9 +3,14 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open("pyclustertend/version.py", "r") as fh:
+    version_dict = {}
+    exec(fh.read(), version_dict)
+    version = version_dict['__version__']
+
 setuptools.setup(
     name="pyclustertend",
-    version="1.4.0",
+    version=version,
     author="Ismaël Lachheb",
     author_email="ismael.lachheb@protonmail.com",
     description="A package to assess cluster tendency",
