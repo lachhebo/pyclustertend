@@ -1,60 +1,52 @@
 import numpy as np
+import pytest
 from sklearn import datasets
-from pyclustertend import assess_tendency_silhouette, assess_tendency_calinski_harabaz, assess_tendency_davies_bouldin, \
-    assess_tendency_by_metrics
-from unittest.mock import patch
+from pyclustertend import assess_tendency_by_metric, assess_tendency_by_mean_metric_score
+
+from unittest.mock import patch, call
 
 
-def test_assess_tendency_silhouette_return_the_max_cluster_score_and_the_scores_of_each_value():
+@pytest.mark.parametrize('metric', ['silhouette', 'calinski_harabasz', 'davies_bouldin'])
+def test_assess_tendency_by_metric_return_the_max_cluster_score_and_the_scores_of_each_value(metric):
     # given
     iris = datasets.load_iris()
     iris_dataset = iris.data
 
     # when
-    best_cluster, silhouette_score_array = assess_tendency_silhouette(iris_dataset)
+    best_cluster, silhouette_score_array = assess_tendency_by_metric(iris_dataset, metric=metric)
 
     # then
-    assert np.argmax(silhouette_score_array) + 2 == best_cluster
+    if metric == 'davies_bouldin':
+        assert np.argmin(silhouette_score_array) + 2 == best_cluster
+    else:
+        assert np.argmax(silhouette_score_array) + 2 == best_cluster
 
 
-def test_assess_tendency_calinski_harabaz_return_the_maximum_index_and_the_scores_of_each_value():
+@patch('pyclustertend.metric.assess_tendency_by_metric', return_value=(1, [0.4, 0.6]))
+def test_assess_tendency_by_mean_metric_score_return_the_mean_value_of_best_cluster_for_each_methods(
+        mock_assess_tendency_by_metric):
     # given
     iris = datasets.load_iris()
     iris_dataset = iris.data
 
     # when
-    best_cluster, silhouette_score_array = assess_tendency_calinski_harabaz(iris_dataset)
+    assess_tendency_by_mean_metric_score(iris_dataset)
 
     # then
-    assert np.argmax(silhouette_score_array) + 2 == best_cluster
 
+    mock_assess_tendency_by_metric.assert_has_calls([
+        call(iris_dataset,
+             n_cluster=10,
+             metric='silhouette',
+             random_state=None),
 
-def test_assess_tendency_davies_bouldin_return_the_maximum_index_and_the_scores_of_each_value():
-    # given
-    iris = datasets.load_iris()
-    iris_dataset = iris.data
+        call(iris_dataset,
+             n_cluster=10,
+             metric='calinski_harabasz',
+             random_state=None),
 
-    # when
-    best_cluster, silhouette_score_array = assess_tendency_davies_bouldin(iris_dataset)
-
-    # then
-    assert np.argmin(silhouette_score_array) + 2 == best_cluster
-
-
-@patch('pyclustertend.metric.assess_tendency_silhouette', return_value=(1, [0.4, 0.6]))
-@patch('pyclustertend.metric.assess_tendency_calinski_harabaz', return_value=(1, [0.4, 0.6]))
-@patch('pyclustertend.metric.assess_tendency_davies_bouldin', return_value=(1, [0.4, 0.6]))
-def test_assess_tendency_by_metrics_return_the_mean_of_the_value_of_best_cluster_for_each_methods(mock_davies,
-                                                                                                  mock_calinski,
-                                                                                                  mock_silhouette):
-    # given
-    iris = datasets.load_iris()
-    iris_dataset = iris.data
-
-    # when
-    assess_tendency_by_metrics(iris_dataset)
-
-    # then
-    mock_calinski.assert_called_once_with(iris_dataset, max_nb_cluster=10, random_state=None)
-    mock_davies.assert_called_once_with(iris_dataset, max_nb_cluster=10, random_state=None)
-    mock_silhouette.assert_called_once_with(iris_dataset, max_nb_cluster=10, random_state=None)
+        call(iris_dataset,
+             n_cluster=10,
+             metric='davies_bouldin',
+             random_state=None)]
+    )
