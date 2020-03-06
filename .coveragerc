@@ -1,0 +1,6 @@
+[run]
+omit =
+	pyclustertend/tests/*
+	pyclustertend/__init__*
+	pyclustertend/version*
+

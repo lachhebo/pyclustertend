@@ -7,5 +7,4 @@ install:
   - pip3 install coverage codecov pytest-cov 
 
 script:
-- pytest --cov=./
-- codecov
+- pytest --cov=pyclustertend tests/
