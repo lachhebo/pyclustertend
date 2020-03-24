@@ -135,7 +135,7 @@ API
   :show-inheritance:
   :inherited-members:
 
-.. automodule:: pyclustertend.vat
+.. automodule:: pyclustertend.visual_assessment_of_tendency
   :members:
   :exclude-members:
   :undoc-members:
