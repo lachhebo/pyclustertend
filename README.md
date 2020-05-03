@@ -60,12 +60,7 @@ Three methods for assessing cluster tendency are currently implemented and one a
 <img height="350" src="https://raw.githubusercontent.com/lachhebo/pyclustertend/screenshots/ivat.png" />
 
 
-# Source and Notes :
-
-The main article used to develop this package is available here :
-
-- https://www.researchgate.net/publication/224218006_An_Efficient_Formulation_of_the_Improved_Visual_Assessment_of_Cluster_Tendency_iVAT_Algorithm/link/0912f50fb54089734a000000
-
+# Notes
 
 It's preferable to scale the data before using hopkins or vat algorithm as they use distance between observations. Moreover, vat and ivat algorithms
 do not really fit to massive databases. For the user, a first solution is to sample the data before using those algorithms. As for the maintainer of this implementation, it could be useful to represent the dissimalirity matrix in a smarter way to decrease the time complexity.
