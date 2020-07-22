@@ -75,7 +75,9 @@ The methods currently developed in the package are :
 - **Hopkins test**
 
 A  statistical test which allow to guess if the data follow an uniform distribution.
-If the test is positve, (an hopkins score which tends to 0) it means that clustering is useless for the dataset.
+If the test is positve (an hopkins score which tends to 0) it means that the data is not uniformly distributed. Hence clustering
+can be useful to classify the observations. However, if the score is too high (above 0.3 for exemple); the data is uniformly distributed and clustering
+can't be really useful for the problem at hand.
 
 
 
