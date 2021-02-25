@@ -1,7 +1,10 @@
-from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bouldin_score
+from sklearn.metrics import silhouette_score, davies_bouldin_score
 from sklearn.cluster import KMeans
 import numpy as np
-
+try:
+    from sklearn.metrics import calinski_harabasz_score as chs
+except ImportError:
+    from sklearn.metrics import calinski_harabaz_score as chs
 
 def assess_tendency_by_metric(dataset, metric='silhouette', n_cluster=10, random_state=None):
     """Assess the clusterability of a dataset using KMeans algorithm and a metric score, the best cluster number
@@ -42,7 +45,7 @@ def assess_tendency_by_metric(dataset, metric='silhouette', n_cluster=10, random
         if metric == 'silhouette':
             result_kmeans = np.append(result_kmeans, silhouette_score(dataset, labels))
         elif metric == 'calinski_harabasz':
-            result_kmeans = np.append(result_kmeans, calinski_harabasz_score(dataset, labels))
+            result_kmeans = np.append(result_kmeans, chs(dataset, labels))
         elif metric == 'davies_bouldin':
             result_kmeans = np.append(result_kmeans, davies_bouldin_score(dataset, labels))
 
