@@ -12,6 +12,8 @@ pyclustertend is a python package specialized in cluster tendency. Cluster tende
 
 Three methods for assessing cluster tendency are currently implemented and one additional method based on metrics obtained with a KMeans estimator :
 
+
+
 - [x] Hopkins Statistics
 - [x] VAT
 - [x] iVAT
