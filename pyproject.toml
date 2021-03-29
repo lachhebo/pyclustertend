@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyclustertend"
-version = "1.5.0"
+version = "1.5.1"
 description = "A package to assess cluster tendency"
 authors = ["Ismaïl Lachheb"]
 license="BSD-3-Clause"
@@ -15,7 +15,7 @@ keywords = ["cluster tendency", "clustering", "machine learning", "hopkins", "VA
 python = "^3.8"
 scikit-learn = "^0.24.0"
 matplotlib = "^3.3.3"
-numpy = "^1.19.5"
+numpy = "^1.19.1"
 pandas = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
