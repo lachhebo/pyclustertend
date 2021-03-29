@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyclustertend"
-version = "1.5.1"
+version = "1.5.2"
 description = "A package to assess cluster tendency"
 authors = ["Ismaïl Lachheb"]
 license="BSD-3-Clause"
@@ -26,6 +26,3 @@ coverage = "^5.4"
 codecov = "^2.1.11"
 pytest-cov = "^2.11.1"
 
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
