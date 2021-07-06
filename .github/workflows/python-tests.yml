@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8, 3.9]
+        python-version: [ 3.8, 3.9 ]
 
     steps:
     - uses: actions/checkout@v2
@@ -14,15 +14,21 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: install poetry 
-      run: | 
+    - name: install poetry
+      run: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
     - name: install dependencies
       run: |
         source $HOME/.poetry/env
         poetry install
-    
+
+    - name: run flake8
+      run: |
+        source $HOME/.poetry/env
+        poetry run flake8
+
+
     - name: run tests
       run: |
         source $HOME/.poetry/env

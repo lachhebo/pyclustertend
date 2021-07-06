@@ -25,4 +25,5 @@ pylint = "^2.6.0"
 coverage = "^5.4"
 codecov = "^2.1.11"
 pytest-cov = "^2.11.1"
+black = "^21.6b0"
 

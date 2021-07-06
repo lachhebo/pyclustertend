@@ -34,8 +34,7 @@ def hopkins(data_frame, sampling_size):
     # Sample n observations from D : P
 
     if sampling_size > data_frame.shape[0]:
-        raise Exception(
-            'The number of sample of sample is bigger than the shape of D')
+        raise Exception("The number of sample of sample is bigger than the shape of D")
 
     data_frame_sample = data_frame.sample(n=sampling_size)
 
@@ -50,13 +49,21 @@ def hopkins(data_frame, sampling_size):
     max_data_frame = data_frame.max()
     min_data_frame = data_frame.min()
 
-    uniformly_selected_values_0 = np.random.uniform(min_data_frame[0], max_data_frame[0], sampling_size)
-    uniformly_selected_values_1 = np.random.uniform(min_data_frame[1], max_data_frame[1], sampling_size)
+    uniformly_selected_values_0 = np.random.uniform(
+        min_data_frame[0], max_data_frame[0], sampling_size
+    )
+    uniformly_selected_values_1 = np.random.uniform(
+        min_data_frame[1], max_data_frame[1], sampling_size
+    )
 
-    uniformly_selected_observations = np.column_stack((uniformly_selected_values_0, uniformly_selected_values_1))
+    uniformly_selected_observations = np.column_stack(
+        (uniformly_selected_values_0, uniformly_selected_values_1)
+    )
     if len(max_data_frame) >= 2:
         for i in range(2, len(max_data_frame)):
-            uniformly_selected_values_i = np.random.uniform(min_data_frame[i], max_data_frame[i], sampling_size)
+            uniformly_selected_values_i = np.random.uniform(
+                min_data_frame[i], max_data_frame[i], sampling_size
+            )
             to_stack = (uniformly_selected_observations, uniformly_selected_values_i)
             uniformly_selected_observations = np.column_stack(to_stack)
 
@@ -74,6 +81,6 @@ def hopkins(data_frame, sampling_size):
     y = sum(uniformly_df_distances_to_nearest_neighbours)
 
     if x + y == 0:
-        raise Exception('The denominator of the hopkins statistics is null')
+        raise Exception("The denominator of the hopkins statistics is null")
 
     return x / (x + y)[0]

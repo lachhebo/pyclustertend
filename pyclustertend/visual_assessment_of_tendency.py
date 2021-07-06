@@ -32,7 +32,12 @@ def vat(data, return_odm=False, figure_size=(10, 10)):
     ordered_dissimilarity_matrix = compute_ordered_dissimilarity_matrix(data)
 
     _, ax = plt.subplots(figsize=figure_size)
-    ax.imshow(ordered_dissimilarity_matrix, cmap='gray', vmin=0, vmax=np.max(ordered_dissimilarity_matrix))
+    ax.imshow(
+        ordered_dissimilarity_matrix,
+        cmap="gray",
+        vmin=0,
+        vmax=np.max(ordered_dissimilarity_matrix),
+    )
 
     if return_odm is True:
         return ordered_dissimilarity_matrix
@@ -66,12 +71,19 @@ def compute_ordered_dissimilarity_matrix(X):
 
     index_of_maximum_value = np.argmax(matrix_of_pairwise_distance)
 
-    column_index_of_maximum_value = index_of_maximum_value // matrix_of_pairwise_distance.shape[1]
+    column_index_of_maximum_value = (
+        index_of_maximum_value // matrix_of_pairwise_distance.shape[1]
+    )
 
     list_of_int[0] = column_index_of_maximum_value
     observation_path.append(column_index_of_maximum_value)
 
-    K = np.linspace(0, matrix_of_pairwise_distance.shape[0] - 1, matrix_of_pairwise_distance.shape[0], dtype="int")
+    K = np.linspace(
+        0,
+        matrix_of_pairwise_distance.shape[0] - 1,
+        matrix_of_pairwise_distance.shape[0],
+        dtype="int",
+    )
     J = np.delete(K, column_index_of_maximum_value)
 
     # Step 2 :
@@ -101,8 +113,11 @@ def compute_ordered_dissimilarity_matrix(X):
 
     for column_index_of_maximum_value in range(ordered_matrix.shape[0]):
         for j in range(ordered_matrix.shape[1]):
-            ordered_matrix[column_index_of_maximum_value, j] = matrix_of_pairwise_distance[
-                list_of_int[column_index_of_maximum_value], list_of_int[j]]
+            ordered_matrix[
+                column_index_of_maximum_value, j
+            ] = matrix_of_pairwise_distance[
+                list_of_int[column_index_of_maximum_value], list_of_int[j]
+            ]
 
     # Step 4 :
 
@@ -138,7 +153,7 @@ def ivat(data, return_odm=False, figure_size=(10, 10)):
     ordered_matrix = compute_ivat_ordered_dissimilarity_matrix(data)
 
     _, ax = plt.subplots(figsize=figure_size)
-    ax.imshow(ordered_matrix, cmap='gray', vmin=0, vmax=np.max(ordered_matrix))
+    ax.imshow(ordered_matrix, cmap="gray", vmin=0, vmax=np.max(ordered_matrix))
 
     if return_odm is True:
         return ordered_matrix

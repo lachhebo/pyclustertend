@@ -5,7 +5,6 @@ from sklearn import datasets
 
 
 class HopkinsTest(unittest.TestCase):
-
     def test_hopkins(self):
         iris = datasets.load_iris()
         iris_dataset = iris.data
@@ -20,5 +19,5 @@ class HopkinsTest(unittest.TestCase):
         self.assertTrue(mean_hopkins <= 0.20)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
