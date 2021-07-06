@@ -1,7 +1,9 @@
-import numpy as np
 from pathlib import Path
-from sklearn import datasets
 from unittest.mock import patch
+
+import numpy as np
+from sklearn import datasets
+from sklearn.preprocessing import scale
 
 from pyclustertend import vat, ivat, compute_ordered_dissimilarity_matrix, compute_ivat_ordered_dissimilarity_matrix
 
@@ -16,19 +18,6 @@ def test_compute_ordered_dissimilarity_matrix():
 
     # when
     ordered_matrix = compute_ordered_dissimilarity_matrix(iris_dataset)
-
-    # then
-    np.testing.assert_allclose(ordered_matrix, expected_ordered_matrix, atol=0.1)
-
-
-def test_compute_ivat_ordered_dissimilarity_matrix():
-    # given
-    iris = datasets.load_iris()
-    iris_dataset = iris.data
-    expected_ordered_matrix = np.load(TEST_DIR / 'data/iris_ivat.npy')
-
-    # when
-    ordered_matrix = compute_ivat_ordered_dissimilarity_matrix(iris_dataset)
 
     # then
     np.testing.assert_allclose(ordered_matrix, expected_ordered_matrix, atol=0.1)
@@ -88,3 +77,14 @@ def test_vat_does_not_return_the_matrix_by_default(mock_compute_vat):
 
     # then
     assert output_result is None
+
+
+def test_compute_ivat_ordered_dissimilarity_matrix__return_symetric_matrix():
+    # given
+    x = scale(datasets.load_iris().data)
+
+    # when
+    result = compute_ivat_ordered_dissimilarity_matrix(x)
+
+    # then
+    np.testing.assert_allclose(result, result.T, atol=0.01)

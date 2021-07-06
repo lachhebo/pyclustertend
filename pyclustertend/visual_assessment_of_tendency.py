@@ -1,6 +1,6 @@
+import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import pairwise_distances
-import matplotlib.pyplot as plt
 
 
 def vat(data, return_odm=False, figure_size=(10, 10)):
@@ -167,13 +167,14 @@ def compute_ivat_ordered_dissimilarity_matrix(X):
     re_ordered_matrix = np.zeros((ordered_matrix.shape[0], ordered_matrix.shape[0]))
 
     for r in range(1, ordered_matrix.shape[0]):
-        # Step 1 : find j for which D[r,j] is minimum and j in [1:r-1]
+        # Step 1 : find j for which D[r,j] is minimum and j ipn [1:r-1]
 
         j = np.argmin(ordered_matrix[r, 0:r])
 
         # Step 2 :
 
         re_ordered_matrix[r, j] = ordered_matrix[r, j]
+        re_ordered_matrix[j, r] = ordered_matrix[r, j]
 
         # Step 3 : pour c : 1,r-1 avec c !=j
         c_tab = np.array(range(0, r))
