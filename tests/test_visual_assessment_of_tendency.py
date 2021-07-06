@@ -1,9 +1,16 @@
-import numpy as np
 from pathlib import Path
-from sklearn import datasets
 from unittest.mock import patch
 
-from pyclustertend import vat, ivat, compute_ordered_dissimilarity_matrix, compute_ivat_ordered_dissimilarity_matrix
+import numpy as np
+from sklearn import datasets
+from sklearn.preprocessing import scale
+
+from pyclustertend import (
+    vat,
+    ivat,
+    compute_ordered_dissimilarity_matrix,
+    compute_ivat_ordered_dissimilarity_matrix,
+)
 
 TEST_DIR = Path(__file__).resolve().parent
 
@@ -12,7 +19,7 @@ def test_compute_ordered_dissimilarity_matrix():
     # given
     iris = datasets.load_iris()
     iris_dataset = iris.data
-    expected_ordered_matrix = np.load(TEST_DIR / 'data/iris_vat.npy')
+    expected_ordered_matrix = np.load(TEST_DIR / "data/iris_vat.npy")
 
     # when
     ordered_matrix = compute_ordered_dissimilarity_matrix(iris_dataset)
@@ -21,21 +28,12 @@ def test_compute_ordered_dissimilarity_matrix():
     np.testing.assert_allclose(ordered_matrix, expected_ordered_matrix, atol=0.1)
 
 
-def test_compute_ivat_ordered_dissimilarity_matrix():
-    # given
-    iris = datasets.load_iris()
-    iris_dataset = iris.data
-    expected_ordered_matrix = np.load(TEST_DIR / 'data/iris_ivat.npy')
-
-    # when
-    ordered_matrix = compute_ivat_ordered_dissimilarity_matrix(iris_dataset)
-
-    # then
-    np.testing.assert_allclose(ordered_matrix, expected_ordered_matrix, atol=0.1)
-
-
-@patch('pyclustertend.visual_assessment_of_tendency.compute_ivat_ordered_dissimilarity_matrix')
-def test_ivat_call_compute_ivat_ordered_dissimilarity_matrix_to_obtain_the_ordered_matrix(mock_compute_ivat):
+@patch(
+    "pyclustertend.visual_assessment_of_tendency.compute_ivat_ordered_dissimilarity_matrix"
+)
+def test_ivat_call_compute_ivat_ordered_dissimilarity_matrix_to_obtain_the_ordered_matrix(
+    mock_compute_ivat,
+):
     # given
     iris = datasets.load_iris()
     iris_dataset = iris.data
@@ -48,8 +46,12 @@ def test_ivat_call_compute_ivat_ordered_dissimilarity_matrix_to_obtain_the_order
     mock_compute_ivat.assert_called_once_with(iris_dataset)
 
 
-@patch('pyclustertend.visual_assessment_of_tendency.compute_ordered_dissimilarity_matrix')
-def test_vat_call_compute_ivat_ordered_dissimilarity_matrix_to_obtain_the_ordered_matrix(mock_compute_vat):
+@patch(
+    "pyclustertend.visual_assessment_of_tendency.compute_ordered_dissimilarity_matrix"
+)
+def test_vat_call_compute_ivat_ordered_dissimilarity_matrix_to_obtain_the_ordered_matrix(
+    mock_compute_vat,
+):
     # given
     iris = datasets.load_iris()
     iris_dataset = iris.data
@@ -62,7 +64,9 @@ def test_vat_call_compute_ivat_ordered_dissimilarity_matrix_to_obtain_the_ordere
     mock_compute_vat.assert_called_once_with(iris_dataset)
 
 
-@patch('pyclustertend.visual_assessment_of_tendency.compute_ivat_ordered_dissimilarity_matrix')
+@patch(
+    "pyclustertend.visual_assessment_of_tendency.compute_ivat_ordered_dissimilarity_matrix"
+)
 def test_ivat_does_not_return_the_matrix_by_default(mock_compute_ivat):
     # given
     iris = datasets.load_iris()
@@ -76,7 +80,9 @@ def test_ivat_does_not_return_the_matrix_by_default(mock_compute_ivat):
     assert output_result is None
 
 
-@patch('pyclustertend.visual_assessment_of_tendency.compute_ordered_dissimilarity_matrix')
+@patch(
+    "pyclustertend.visual_assessment_of_tendency.compute_ordered_dissimilarity_matrix"
+)
 def test_vat_does_not_return_the_matrix_by_default(mock_compute_vat):
     # given
     iris = datasets.load_iris()
@@ -88,3 +94,14 @@ def test_vat_does_not_return_the_matrix_by_default(mock_compute_vat):
 
     # then
     assert output_result is None
+
+
+def test_compute_ivat_ordered_dissimilarity_matrix__return_symetric_matrix():
+    # given
+    x = scale(datasets.load_iris().data)
+
+    # when
+    result = compute_ivat_ordered_dissimilarity_matrix(x)
+
+    # then
+    np.testing.assert_allclose(result, result.T, atol=0.01)
