@@ -66,4 +66,4 @@ Three methods for assessing cluster tendency are currently implemented and one a
 ## Notes
 
 It's preferable to scale the data before using hopkins or vat algorithm as they use distance between observations. Moreover, vat and ivat algorithms
-do not really fit to massive databases. For the user, a first solution is to sample the data before using those algorithms. As for the maintainer of this implementation, it could be useful to represent the dissimalirity matrix in a smarter way to decrease the time complexity.
+do not really fit to massive databases. A first solution is to sample the data before using those algorithms. 
