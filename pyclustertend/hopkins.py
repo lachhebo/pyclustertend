@@ -38,7 +38,7 @@ def hopkins(data_frame, sampling_size):
 
     data_frame_sample = data_frame.sample(n=sampling_size)
 
-    # Get the distance to their neirest neighbors in D : X
+    # Get the distance to their nearest neighbors in D : X
 
     tree = BallTree(data_frame, leaf_size=2)
     dist, _ = tree.query(data_frame_sample, k=2)
@@ -69,13 +69,13 @@ def hopkins(data_frame, sampling_size):
 
     uniformly_selected_observations_df = pd.DataFrame(uniformly_selected_observations)
 
-    # Get the distance to their neirest neighbors in D : Y
+    # Get the distance to their nearest neighbors in D : Y
 
     tree = BallTree(data_frame, leaf_size=2)
     dist, _ = tree.query(uniformly_selected_observations_df, k=1)
     uniformly_df_distances_to_nearest_neighbours = dist
 
-    # return the hopkins score
+    # return the Hopkins score
 
     x = sum(data_frame_sample_distances_to_nearest_neighbours)
     y = sum(uniformly_df_distances_to_nearest_neighbours)

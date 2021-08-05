@@ -4,8 +4,8 @@ from sklearn.metrics import pairwise_distances
 
 
 def vat(data, return_odm=False, figure_size=(10, 10)):
-    """VAT means Visual assesement of tendency. basically, it allow to asses cluster tendency
-    through a map based on the dissimiliraty matrix.
+    """VAT means Visual assessment of tendency. basically, it allow to asses cluster tendency
+    through a map based on the dissimilarity matrix.
 
 
     Parameters
@@ -14,7 +14,7 @@ def vat(data, return_odm=False, figure_size=(10, 10)):
     data : matrix
         numpy array
 
-    return_odm : return the Ordered Dissimalirity Matrix
+    return_odm : return the Ordered dissimilarity Matrix
         boolean (default to False)
 
     figure_size : size of the VAT.
@@ -25,7 +25,7 @@ def vat(data, return_odm=False, figure_size=(10, 10)):
     -------
 
     ODM : matrix
-        the ordered dissimalarity matrix plotted.
+        the ordered dissimilarity matrix plotted.
 
     """
 
@@ -44,7 +44,7 @@ def vat(data, return_odm=False, figure_size=(10, 10)):
 
 
 def compute_ordered_dissimilarity_matrix(X):
-    """The ordered dissimilarity matrix is used by visual assesement of tendency. It is a just a a reordering
+    """The ordered dissimilarity matrix is used by visual assessment of tendency. It is a just a a reordering
     of the dissimilarity matrix.
 
 
@@ -58,7 +58,7 @@ def compute_ordered_dissimilarity_matrix(X):
     -------
 
     ODM : matrix
-        the ordered dissimalarity matrix .
+        the ordered dissimilarity matrix
 
     """
 
@@ -135,7 +135,7 @@ def ivat(data, return_odm=False, figure_size=(10, 10)):
     data : matrix
         numpy array
 
-    return_odm : return the Ordered Dissimalirity Matrix
+    return_odm : return the Ordered dissimilarity Matrix
             boolean (default to False)
 
     figure_size : size of the VAT.
@@ -146,7 +146,7 @@ def ivat(data, return_odm=False, figure_size=(10, 10)):
     -------
 
     D_prim : matrix
-        the ivat ordered dissimalarity matrix.
+        the ivat ordered dissimilarity matrix
 
     """
 
@@ -174,7 +174,7 @@ def compute_ivat_ordered_dissimilarity_matrix(X):
     -------
 
     D_prim : matrix
-        the ordered dissimalarity matrix .
+        the ordered dissimilarity matrix
 
     """
 
@@ -191,7 +191,7 @@ def compute_ivat_ordered_dissimilarity_matrix(X):
         re_ordered_matrix[r, j] = ordered_matrix[r, j]
         re_ordered_matrix[j, r] = ordered_matrix[r, j]
 
-        # Step 3 : pour c : 1,r-1 avec c !=j
+        # Step 3 : for c : 1, r-1 with c !=j
         c_tab = np.array(range(0, r))
         c_tab = c_tab[c_tab != j]
 
