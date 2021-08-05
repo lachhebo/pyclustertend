@@ -1,23 +1,13 @@
-from sklearn.neighbors import BallTree
+from typing import Union
+
 import numpy as np
 import pandas as pd
+from sklearn.neighbors import BallTree
 
 
-def hopkins(data_frame, sampling_size):
+def hopkins(data_frame: Union[np.ndarray, pd.DataFrame], sampling_size: int) -> float:
     """Assess the clusterability of a dataset. A score between 0 and 1, a score around 0.5 express
     no clusterability and a score tending to 0 express a high cluster tendency.
-
-    Parameters
-    ----------
-    data_frame : numpy array
-        The input dataset
-    sampling_size : int
-        The sampling size which is used to evaluate the number of DataFrame.
-
-    Returns
-    ---------------------
-    score : float
-        The hopkins score of the dataset (between 0 and 1)
 
     Examples
     --------
@@ -31,31 +21,47 @@ def hopkins(data_frame, sampling_size):
     if type(data_frame) == np.ndarray:
         data_frame = pd.DataFrame(data_frame)
 
-    # Sample n observations from D : P
+    data_frame_sample = sample_observation_from_dataset(data_frame, sampling_size)
 
-    if sampling_size > data_frame.shape[0]:
-        raise Exception("The number of sample of sample is bigger than the shape of D")
+    sample_distances_to_nearest_neighbours = get_distance_sample_to_nearest_neighbours(
+        data_frame, data_frame_sample
+    )
 
-    data_frame_sample = data_frame.sample(n=sampling_size)
+    uniformly_selected_observations_df = simulate_df_with_same_variation(
+        data_frame, sampling_size
+    )
 
-    # Get the distance to their nearest neighbors in D : X
+    df_distances_to_nearest_neighbours = get_nearest_sample(
+        data_frame, uniformly_selected_observations_df
+    )
 
-    tree = BallTree(data_frame, leaf_size=2)
-    dist, _ = tree.query(data_frame_sample, k=2)
-    data_frame_sample_distances_to_nearest_neighbours = dist[:, 1]
+    x = sum(sample_distances_to_nearest_neighbours)
+    y = sum(df_distances_to_nearest_neighbours)
 
-    # Randomly simulate n points with the same variation as in D : Q.
+    if x + y == 0:
+        raise Exception("The denominator of the hopkins statistics is null")
 
-    max_data_frame = data_frame.max()
-    min_data_frame = data_frame.min()
+    return x / (x + y)[0]
 
+
+def get_nearest_sample(df: pd.DataFrame, uniformly_selected_observations: pd.DataFrame):
+    tree = BallTree(df, leaf_size=2)
+    dist, _ = tree.query(uniformly_selected_observations, k=1)
+    uniformly_df_distances_to_nearest_neighbours = dist
+    return uniformly_df_distances_to_nearest_neighbours
+
+
+def simulate_df_with_same_variation(
+    df: pd.DataFrame, sampling_size: int
+) -> pd.DataFrame:
+    max_data_frame = df.max()
+    min_data_frame = df.min()
     uniformly_selected_values_0 = np.random.uniform(
         min_data_frame[0], max_data_frame[0], sampling_size
     )
     uniformly_selected_values_1 = np.random.uniform(
         min_data_frame[1], max_data_frame[1], sampling_size
     )
-
     uniformly_selected_observations = np.column_stack(
         (uniformly_selected_values_0, uniformly_selected_values_1)
     )
@@ -66,21 +72,19 @@ def hopkins(data_frame, sampling_size):
             )
             to_stack = (uniformly_selected_observations, uniformly_selected_values_i)
             uniformly_selected_observations = np.column_stack(to_stack)
-
     uniformly_selected_observations_df = pd.DataFrame(uniformly_selected_observations)
+    return uniformly_selected_observations_df
 
-    # Get the distance to their nearest neighbors in D : Y
 
-    tree = BallTree(data_frame, leaf_size=2)
-    dist, _ = tree.query(uniformly_selected_observations_df, k=1)
-    uniformly_df_distances_to_nearest_neighbours = dist
+def get_distance_sample_to_nearest_neighbours(df: pd.DataFrame, data_frame_sample):
+    tree = BallTree(df, leaf_size=2)
+    dist, _ = tree.query(data_frame_sample, k=2)
+    data_frame_sample_distances_to_nearest_neighbours = dist[:, 1]
+    return data_frame_sample_distances_to_nearest_neighbours
 
-    # return the Hopkins score
 
-    x = sum(data_frame_sample_distances_to_nearest_neighbours)
-    y = sum(uniformly_df_distances_to_nearest_neighbours)
-
-    if x + y == 0:
-        raise Exception("The denominator of the hopkins statistics is null")
-
-    return x / (x + y)[0]
+def sample_observation_from_dataset(df, sampling_size: int):
+    if sampling_size > df.shape[0]:
+        raise Exception("The number of sample of sample is bigger than the shape of D")
+    data_frame_sample = df.sample(n=sampling_size)
+    return data_frame_sample

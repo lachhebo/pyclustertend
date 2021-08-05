@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyclustertend"
-version = "1.6.1"
+version = "1.6.2"
 description = "A package to assess cluster tendency for unsupervised learning"
 authors = ["Ismaïl Lachheb"]
 license="BSD-3-Clause"

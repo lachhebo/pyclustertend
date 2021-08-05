@@ -1,14 +1,17 @@
+from typing import Union
+
+import numpy as np
+import pandas as pd
+from sklearn.cluster import KMeans
 from sklearn.metrics import (
     silhouette_score,
     calinski_harabasz_score,
     davies_bouldin_score,
 )
-from sklearn.cluster import KMeans
-import numpy as np
 
 
 def assess_tendency_by_metric(
-    dataset, metric="silhouette", n_cluster=10, random_state=None
+    dataset, metric="silhouette", n_cluster: int = 10, random_state: int = None
 ):
     """Assess the clusterability of a dataset using KMeans algorithm and a metric score, the best cluster number
     is the number that best scored with the silhouette score.
@@ -63,7 +66,11 @@ def assess_tendency_by_metric(
         return np.argmax(result_kmeans) + 2, result_kmeans
 
 
-def assess_tendency_by_mean_metric_score(dataset, n_cluster=10, random_state=None):
+def assess_tendency_by_mean_metric_score(
+    dataset: Union[pd.DataFrame, np.ndarray],
+    n_cluster: int = 10,
+    random_state: int = 42,
+):
     """Assess the clusterability of a dataset using KMeans algorithm and the silhouette, calinski and davies bouldin
     score, the best cluster number is the mean of the result of the three methods.
 
@@ -73,7 +80,7 @@ def assess_tendency_by_mean_metric_score(dataset, n_cluster=10, random_state=Non
         The input dataset
     n_cluster : int
         The maxium number of cluster to consider
-    random_state : int (default to None)
+    random_state : int (default to 42)
 
     Returns
     ---------------------

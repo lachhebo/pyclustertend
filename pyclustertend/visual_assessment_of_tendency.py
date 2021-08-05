@@ -1,9 +1,11 @@
+from typing import Tuple
+
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import pairwise_distances
 
 
-def vat(data, return_odm=False, figure_size=(10, 10)):
+def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10)):
     """VAT means Visual assessment of tendency. basically, it allow to asses cluster tendency
     through a map based on the dissimilarity matrix.
 
@@ -43,7 +45,7 @@ def vat(data, return_odm=False, figure_size=(10, 10)):
         return ordered_dissimilarity_matrix
 
 
-def compute_ordered_dissimilarity_matrix(X):
+def compute_ordered_dissimilarity_matrix(x: np.ndarray):
     """The ordered dissimilarity matrix is used by visual assessment of tendency. It is a just a a reordering
     of the dissimilarity matrix.
 
@@ -51,7 +53,7 @@ def compute_ordered_dissimilarity_matrix(X):
     Parameters
     ----------
 
-    X : matrix
+    x : matrix
         numpy array
 
     Return
@@ -66,7 +68,7 @@ def compute_ordered_dissimilarity_matrix(X):
 
     observation_path = []
 
-    matrix_of_pairwise_distance = pairwise_distances(X)
+    matrix_of_pairwise_distance = pairwise_distances(x)
     list_of_int = np.zeros(matrix_of_pairwise_distance.shape[0], dtype="int")
 
     index_of_maximum_value = np.argmax(matrix_of_pairwise_distance)
@@ -124,7 +126,7 @@ def compute_ordered_dissimilarity_matrix(X):
     return ordered_matrix
 
 
-def ivat(data, return_odm=False, figure_size=(10, 10)):
+def ivat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10)):
     """iVat return a visualisation based on the Vat but more reliable and easier to
     interpret.
 
@@ -159,7 +161,7 @@ def ivat(data, return_odm=False, figure_size=(10, 10)):
         return ordered_matrix
 
 
-def compute_ivat_ordered_dissimilarity_matrix(X):
+def compute_ivat_ordered_dissimilarity_matrix(x: np.ndarray):
     """The ordered dissimilarity matrix is used by ivat. It is a just a a reordering
     of the dissimilarity matrix.
 
@@ -167,7 +169,7 @@ def compute_ivat_ordered_dissimilarity_matrix(X):
     Parameters
     ----------
 
-    X : matrix
+    x : matrix
         numpy array
 
     Return
@@ -178,7 +180,7 @@ def compute_ivat_ordered_dissimilarity_matrix(X):
 
     """
 
-    ordered_matrix = compute_ordered_dissimilarity_matrix(X)
+    ordered_matrix = compute_ordered_dissimilarity_matrix(x)
     re_ordered_matrix = np.zeros((ordered_matrix.shape[0], ordered_matrix.shape[0]))
 
     for r in range(1, ordered_matrix.shape[0]):

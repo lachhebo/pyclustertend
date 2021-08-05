@@ -46,15 +46,13 @@ def test_assess_tendency_by_mean_metric_score_return_the_mean_value_of_best_clus
 
     mock_assess_tendency_by_metric.assert_has_calls(
         [
-            call(iris_dataset, n_cluster=10, metric="silhouette", random_state=None),
+            call(iris_dataset, n_cluster=10, metric="silhouette", random_state=42),
             call(
                 iris_dataset,
                 n_cluster=10,
                 metric="calinski_harabasz",
-                random_state=None,
+                random_state=42,
             ),
-            call(
-                iris_dataset, n_cluster=10, metric="davies_bouldin", random_state=None
-            ),
+            call(iris_dataset, n_cluster=10, metric="davies_bouldin", random_state=42),
         ]
     )
