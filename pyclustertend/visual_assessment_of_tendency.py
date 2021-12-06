@@ -47,7 +47,7 @@ def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10
 
 
 @njit(cache=True)
-def compute_ordered_dis_njit(matrix_of_pairwise_distance: np.ndarray):
+def compute_ordered_dis_njit(matrix_of_pairwise_distance: np.ndarray):  # pragma: no cover
     """
     The ordered dissimilarity matrix is used by visual assessment of tendency. It is a just a a reordering
     of the dissimilarity matrix.
