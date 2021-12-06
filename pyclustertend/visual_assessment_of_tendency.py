@@ -3,6 +3,7 @@ from typing import Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import pairwise_distances
+from numba import njit
 
 
 def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10)):
@@ -45,12 +46,14 @@ def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10
         return ordered_dissimilarity_matrix
 
 
-def compute_ordered_dissimilarity_matrix(x: np.ndarray):
-    """The ordered dissimilarity matrix is used by visual assessment of tendency. It is a just a a reordering
+@njit(cache=True)
+def compute_ordered_dis_njit(matrix_of_pairwise_distance: np.ndarray):  # pragma: no cover
+    """
+    The ordered dissimilarity matrix is used by visual assessment of tendency. It is a just a a reordering
     of the dissimilarity matrix.
 
 
-    Parameters
+    Parameter
     ----------
 
     x : matrix
@@ -66,9 +69,8 @@ def compute_ordered_dissimilarity_matrix(x: np.ndarray):
 
     # Step 1 :
 
-    observation_path = []
+    observation_path = np.zeros(matrix_of_pairwise_distance.shape[0], dtype="int")
 
-    matrix_of_pairwise_distance = pairwise_distances(x)
     list_of_int = np.zeros(matrix_of_pairwise_distance.shape[0], dtype="int")
 
     index_of_maximum_value = np.argmax(matrix_of_pairwise_distance)
@@ -78,17 +80,15 @@ def compute_ordered_dissimilarity_matrix(x: np.ndarray):
     )
 
     list_of_int[0] = column_index_of_maximum_value
-    observation_path.append(column_index_of_maximum_value)
+    observation_path[0] = column_index_of_maximum_value
 
     K = np.linspace(
         0,
         matrix_of_pairwise_distance.shape[0] - 1,
         matrix_of_pairwise_distance.shape[0],
-        dtype="int",
-    )
-    J = np.delete(K, column_index_of_maximum_value)
+    ).astype(np.int32)
 
-    # Step 2 :
+    J = np.delete(K, column_index_of_maximum_value)
 
     for r in range(1, matrix_of_pairwise_distance.shape[0]):
 
@@ -96,7 +96,7 @@ def compute_ordered_dissimilarity_matrix(x: np.ndarray):
 
         mini = np.max(matrix_of_pairwise_distance)
 
-        for candidate_p in observation_path:
+        for candidate_p in observation_path[0:r]:
             for candidate_j in J:
                 if matrix_of_pairwise_distance[candidate_p, candidate_j] < mini:
                     p = candidate_p
@@ -104,9 +104,8 @@ def compute_ordered_dissimilarity_matrix(x: np.ndarray):
                     mini = matrix_of_pairwise_distance[p, q]
 
         list_of_int[r] = q
-        observation_path.append(q)
-
-        ind_q = np.where(np.array(J) == q)[0][0]
+        observation_path[r] = q
+        ind_q = np.where(J == q)[0][0]
         J = np.delete(J, ind_q)
 
     # Step 3
@@ -124,6 +123,12 @@ def compute_ordered_dissimilarity_matrix(x: np.ndarray):
     # Step 4 :
 
     return ordered_matrix
+
+
+def compute_ordered_dissimilarity_matrix(x: np.ndarray) -> np.ndarray:
+    matrix_of_pairwise_distance = pairwise_distances(x)
+    dis_matrix = compute_ordered_dis_njit(matrix_of_pairwise_distance)
+    return dis_matrix
 
 
 def ivat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10)):

@@ -5,7 +5,7 @@ import numpy as np
 from sklearn import datasets
 from sklearn.preprocessing import scale
 
-from pyclustertend import (
+from pyclustertend.visual_assessment_of_tendency import (
     vat,
     ivat,
     compute_ordered_dissimilarity_matrix,
