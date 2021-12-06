@@ -3,10 +3,7 @@ from typing import Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import pairwise_distances
-
-from numba.pycc import CC
-
-cc = CC('visual_assessment_of_tendency')
+from numba import njit
 
 
 def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10)):
@@ -49,7 +46,7 @@ def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10
         return ordered_dissimilarity_matrix
 
 
-@cc.export('compute_ordered_diss_isma_matrix', 'f8[:,:](f8[:,:])')
+@njit(cache=True)
 def compute_ordered_dissimilarity_matrix(matrix_of_pairwise_distance: np.ndarray):
     """
     The ordered dissimilarity matrix is used by visual assessment of tendency. It is a just a a reordering
@@ -210,7 +207,3 @@ def compute_ivat_ordered_dissimilarity_matrix(x: np.ndarray):
             re_ordered_matrix[c, r] = re_ordered_matrix[r, c]
 
     return re_ordered_matrix
-
-
-if __name__ == "__main__":
-    cc.compile()
