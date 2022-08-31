@@ -1,11 +1,12 @@
-name: Test the package
+name: CICD
 on: push
 jobs:
+
   tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ 3.8, 3.9 ]
+        python-version: [ 3.8, 3.9, 3.10]
 
     steps:
     - uses: actions/checkout@v2
@@ -28,9 +29,21 @@ jobs:
         source $HOME/.poetry/env
         poetry run flake8
 
-
     - name: run tests
       run: |
         source $HOME/.poetry/env
         poetry run pytest tests --cov=pyclustertend --cov-fail-under=95
         poetry run codecov
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+    - name: Publish
+      run: |
+        source $HOME/.poetry/env
+        poetry publish -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" 
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
