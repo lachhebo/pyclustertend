@@ -9,30 +9,28 @@ jobs:
         python-version: ['3.8', '3.9', '3.10']
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+
+    - name: Install poetry
+      run: pipx install poetry
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
         cache: 'poetry'
 
-    - name: install poetry
-      run: |
-        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
     - name: install dependencies
       run: |
-        source $HOME/.poetry/env
         poetry install
 
     - name: run flake8
       run: |
-        source $HOME/.poetry/env
         poetry run flake8
 
     - name: run tests
       run: |
-        source $HOME/.poetry/env
         poetry run pytest tests --cov=pyclustertend --cov-fail-under=95
         poetry run codecov
 
@@ -43,7 +41,6 @@ jobs:
     steps:
     - name: Publish
       run: |
-        source $HOME/.poetry/env
         poetry publish -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" 
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
