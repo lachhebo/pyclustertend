@@ -1,0 +1,47 @@
+name: CICD
+on: push
+jobs:
+
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install poetry
+      run: pipx install poetry
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'poetry'
+
+
+    - name: install dependencies
+      run: |
+        poetry install
+
+    - name: run flake8
+      run: |
+        poetry run flake8
+
+    - name: run tests
+      run: |
+        poetry run pytest tests --cov=pyclustertend --cov-fail-under=95
+        poetry run codecov
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+    - name: Publish
+      run: |
+        poetry publish -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" 
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
