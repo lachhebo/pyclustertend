@@ -1,4 +1,5 @@
 import numpy as np
+import random
 from sklearn import datasets
 
 from pyclustertend.hopkins import hopkins
@@ -6,6 +7,7 @@ from pyclustertend.hopkins import hopkins
 
 def test_hopkins_give_coherent_results_for_iris_dataset():
     iris = datasets.load_iris()
+    random.seed(42)
     X = iris.data
 
     hopkins_scores = []
