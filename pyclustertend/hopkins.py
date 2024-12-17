@@ -18,7 +18,7 @@ def hopkins(data_frame: Union[np.ndarray, pd.DataFrame], sampling_size: int) -> 
     0.16
     """
 
-    if type(data_frame) == np.ndarray:
+    if isinstance(data_frame, np.ndarray):
         data_frame = pd.DataFrame(data_frame)
 
     data_frame_sample = sample_observation_from_dataset(data_frame, sampling_size)
