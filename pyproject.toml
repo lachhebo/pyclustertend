@@ -10,14 +10,20 @@ exclude = ["tests/"]
 repository = "https://github.com/lachhebo/pyclustertend"
 keywords = ["cluster tendency", "clustering", "machine learning", "hopkins", "VAT"]
 
-
 [tool.poetry.dependencies]
-python = "^3.10, <3.13"
-numba = "^0.60.0"
-pandas = "^2.2.3"
-matplotlib = "^3.10.0"
+python = ">=3.10, <3.15"
+numba = "0.64.0"
+numpy = ">=2.2.6"
+pandas = "^2.3.3"
+matplotlib = "^3.10.3"
 pytest = "^8.3.4"
-scikit-learn = "^1.6.0"
+scikit-learn = "^1.7.2"
+scipy = [
+  { version = ">=1.11,<1.14", markers = "python_version >= '3.10' and python_version < '3.11'" },
+  { version = ">=1.14,<1.17", markers = "python_version >= '3.11' and python_version < '3.14'" },
+  { version = ">=1.17", markers = "python_version >= '3.14'" }
+]
+pillow = ">=10.0.0,<13.0.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.1"
@@ -26,4 +32,3 @@ coverage = "^7.6.9"
 codecov = "^2.1.13"
 pytest-cov = "^6.0.0"
 pytest = "^8.3.4"
-
