@@ -12,12 +12,13 @@ keywords = ["cluster tendency", "clustering", "machine learning", "hopkins", "VA
 
 
 [tool.poetry.dependencies]
-python = "^3.10, <3.13"
-numba = "^0.60.0"
-pandas = "^2.2.3"
-matplotlib = "^3.10.0"
+python = ">=3.10, <3.14"
+numba = "0.64.0"
+numpy = ">=2.2.6"
+pandas = "^2.3.3"
+matplotlib = "^3.10.3"
 pytest = "^8.3.4"
-scikit-learn = "^1.6.0"
+scikit-learn = "^1.7.2"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.1"
