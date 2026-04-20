@@ -6,7 +6,7 @@ from sklearn.metrics import pairwise_distances
 from numba import njit
 
 
-def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10)):
+def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10), metric : str ="euclidean"):
     """VAT means Visual assessment of tendency. basically, it allow to asses cluster tendency
     through a map based on the dissimilarity matrix.
 
@@ -32,7 +32,7 @@ def vat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10
 
     """
 
-    ordered_dissimilarity_matrix = compute_ordered_dissimilarity_matrix(data)
+    ordered_dissimilarity_matrix = compute_ordered_dissimilarity_matrix(data,metric)
 
     _, ax = plt.subplots(figsize=figure_size)
     ax.imshow(
@@ -125,13 +125,13 @@ def compute_ordered_dis_njit(matrix_of_pairwise_distance: np.ndarray):  # pragma
     return ordered_matrix
 
 
-def compute_ordered_dissimilarity_matrix(x: np.ndarray) -> np.ndarray:
-    matrix_of_pairwise_distance = pairwise_distances(x)
+def compute_ordered_dissimilarity_matrix(x: np.ndarray, metric:str) -> np.ndarray:
+    matrix_of_pairwise_distance = pairwise_distances(x,metric= metric)
     dis_matrix = compute_ordered_dis_njit(matrix_of_pairwise_distance)
     return dis_matrix
 
 
-def ivat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10)):
+def ivat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 10),metric : str ="euclidean"):
     """iVat return a visualisation based on the Vat but more reliable and easier to
     interpret.
 
@@ -157,7 +157,7 @@ def ivat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 1
 
     """
 
-    ordered_matrix = compute_ivat_ordered_dissimilarity_matrix(data)
+    ordered_matrix = compute_ivat_ordered_dissimilarity_matrix(data,metric)
 
     _, ax = plt.subplots(figsize=figure_size)
     ax.imshow(ordered_matrix, cmap="gray", vmin=0, vmax=np.max(ordered_matrix))
@@ -166,7 +166,7 @@ def ivat(data: np.ndarray, return_odm: bool = False, figure_size: Tuple = (10, 1
         return ordered_matrix
 
 
-def compute_ivat_ordered_dissimilarity_matrix(x: np.ndarray):
+def compute_ivat_ordered_dissimilarity_matrix(x: np.ndarray,metric : str):
     """The ordered dissimilarity matrix is used by ivat. It is a just a a reordering
     of the dissimilarity matrix.
 
@@ -184,8 +184,8 @@ def compute_ivat_ordered_dissimilarity_matrix(x: np.ndarray):
         the ordered dissimilarity matrix
 
     """
-
-    ordered_matrix = compute_ordered_dissimilarity_matrix(x)
+    
+    ordered_matrix = compute_ordered_dissimilarity_matrix(x,metric )
     re_ordered_matrix = np.zeros((ordered_matrix.shape[0], ordered_matrix.shape[0]))
 
     for r in range(1, ordered_matrix.shape[0]):
